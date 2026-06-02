@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>医学理想国 Med-Utopia 内测版</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="rail" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="医学理想国首页">
+          <span class="brand-mark">MU</span>
+          <span>
+            <strong>医学理想国</strong>
+            <small>Med-Utopia Beta</small>
+          </span>
+        </a>
+        <nav class="nav-list">
+          <a href="#workspace" class="active">工作台</a>
+          <a href="#case-lab">提交病例</a>
+          <a href="#consult">学术挂号</a>
+          <a href="#bounty">技术悬赏</a>
+          <a href="#records">我的提交</a>
+        </nav>
+        <div class="rail-card">
+          <span class="status-dot"></span>
+          <p>内测交互版</p>
+          <strong>数据暂存于本机浏览器</strong>
+        </div>
+      </aside>
+
+      <main id="top">
+        <header class="topbar">
+          <div class="search">
+            <span aria-hidden="true">⌕</span>
+            <input id="globalSearch" type="search" placeholder="搜索病例、专家、悬赏、我的提交" />
+          </div>
+          <div class="top-actions">
+            <button class="ghost-button" type="button" data-open-modal="case">提交病例</button>
+            <button class="primary-button" type="button" data-open-modal="consult">发起学术挂号</button>
+          </div>
+        </header>
+
+        <section class="hero-grid" aria-label="医学理想国平台概览">
+          <article class="hero-card">
+            <div class="hero-copy">
+              <p class="eyebrow">Academic curation · Clinical intelligence · Beta workspace</p>
+              <h1>一个能提交、审核、复盘、交易医学智力的平台。</h1>
+              <p class="lede">
+                这是医学理想国的内测交互版。你可以提交脱敏病例、发起学术咨询、发布技术悬赏，
+                并在工作台里看到状态流转。当前版本用于产品验证，不替代正式诊疗。
+              </p>
+              <div class="hero-actions">
+                <button class="primary-button" type="button" data-open-modal="case">提交一个病例</button>
+                <button class="ghost-button" type="button" data-open-modal="bounty">发布悬赏任务</button>
+              </div>
+              <div class="hero-tags" aria-label="核心能力">
+                <span>自动脱敏提醒</span>
+                <span>结构化问题单</span>
+                <span>专家复核队列</span>
+                <span>本地内测记录</span>
+              </div>
+            </div>
+            <img src="assets/image4.png" alt="Med-Utopia 医学科技视觉" />
+          </article>
+
+          <article class="signal-card">
+            <span class="card-label">今日队列</span>
+            <strong id="queueCount">0</strong>
+            <p>条内测提交等待审核。病例进入知识库前必须先完成患者信息脱敏。</p>
+          </article>
+
+          <article class="live-card">
+            <span class="card-label">当前悬赏</span>
+            <h2>肝癌术后复发队列图谱重构</h2>
+            <p>需完成样本分层、统计路径梳理与汇报版式优化。</p>
+            <div class="reward">
+              <span>赏金</span>
+              <strong>¥ 1,800</strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="beta-strip" aria-label="内测说明">
+          <strong>内测边界</strong>
+          <p>
+            当前页面支持真实表单交互和本机保存，但还没有云端账号、多人共享、支付和专家通知。
+            请不要上传患者姓名、住院号、身份证号、电话、面部照片等可识别信息。
+          </p>
+        </section>
+
+        <section class="section-head" id="workspace">
+          <p>Interactive Workspace</p>
+          <h2>把平台核心动作先跑起来</h2>
+        </section>
+
+        <section class="workspace-grid">
+          <article class="panel action-panel" id="case-lab">
+            <span class="card-label">避雷针实验室</span>
+            <h3>提交脱敏病例，进入专家复盘队列</h3>
+            <p>用结构化表单收集病程、关键检查、决策节点和想复盘的问题。</p>
+            <button class="primary-button small" type="button" data-open-modal="case">提交病例</button>
+          </article>
+
+          <article class="panel action-panel" id="consult">
+            <span class="card-label">学术挂号</span>
+            <h3>向专家发起经过整理的问题单</h3>
+            <p>当前定位为学术咨询和病例复盘，不提供诊断、处方或治疗承诺。</p>
+            <button class="primary-button small" type="button" data-open-modal="consult">发起咨询</button>
+          </article>
+
+          <article class="panel action-panel" id="bounty">
+            <span class="card-label">技术悬赏</span>
+            <h3>发布科研图表、统计分析、PPT 重构任务</h3>
+            <p>让有实操能力的医学生、医生和跨界人才用作品被看见。</p>
+            <button class="primary-button small" type="button" data-open-modal="bounty">发布悬赏</button>
+          </article>
+
+          <article class="panel stats-panel">
+            <span class="card-label">内测状态</span>
+            <h3>审核流转</h3>
+            <div class="status-stack">
+              <span><b id="draftCount">0</b> 新提交</span>
+              <span><b id="reviewCount">0</b> 审核中</span>
+              <span><b id="doneCount">0</b> 已进入策展</span>
+            </div>
+          </article>
+
+          <article class="panel span-2 curation-panel">
+            <div class="panel-head">
+              <div>
+                <span class="card-label">学术策展流</span>
+                <h3>系统会把非标材料压成可复盘的知识资产</h3>
+              </div>
+              <button type="button" class="icon-button" id="seedDemo" aria-label="生成演示数据">＋</button>
+            </div>
+            <div class="case-list" id="curationFeed" aria-live="polite"></div>
+          </article>
+
+          <article class="panel visual-panel">
+            <span class="card-label">AI 医学美学引擎</span>
+            <h3>病例报告、科研海报、PPT 的视觉重构入口</h3>
+            <div class="visual-preview">
+              <img src="assets/image1.png" alt="医学理想国品牌卡片" />
+            </div>
+          </article>
+        </section>
+
+        <section class="records-section" id="records">
+          <div class="section-head compact">
+            <p>My Submissions</p>
+            <h2>我的内测提交</h2>
+          </div>
+          <div class="records-toolbar">
+            <div class="tab-group" role="tablist" aria-label="提交类型筛选">
+              <button type="button" class="tab active" data-filter="all">全部</button>
+              <button type="button" class="tab" data-filter="case">病例</button>
+              <button type="button" class="tab" data-filter="consult">挂号</button>
+              <button type="button" class="tab" data-filter="bounty">悬赏</button>
+            </div>
+            <button type="button" class="ghost-button danger" id="clearRecords">清空本机记录</button>
+          </div>
+          <div class="record-list" id="recordList" aria-live="polite"></div>
+        </section>
+
+        <section class="flow-section">
+          <div class="section-head compact">
+            <p>Beta Roadmap</p>
+            <h2>下一步接后端时，需要补齐这些能力</h2>
+          </div>
+          <div class="flow-grid">
+            <article>
+              <span>01</span>
+              <h3>账号与身份认证</h3>
+              <p>医生、专家、学生、机构和管理员分角色登录，并记录审核操作。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>云端数据库</h3>
+              <p>病例、咨询、悬赏、回复、附件和状态流转统一保存到服务器。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>隐私与合规</h3>
+              <p>脱敏校验、访问权限、日志留存、免责声明和数据删除流程必须前置。</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>通知与支付</h3>
+              <p>接入短信/邮件/微信通知，内测稳定后再加入支付和佣金结算。</p>
+            </article>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <img src="assets/image6.png" alt="Med-Utopia 消除信息熵，让智慧被看见" />
+          <div>
+            <p>Med-Utopia Beta</p>
+            <h2>先让真实流程跑起来，再让平台长出真正的社区。</h2>
+            <button type="button" class="primary-button" data-open-modal="waitlist">申请内测席位</button>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow" id="modalEyebrow">Beta Form</p>
+            <h2 id="modalTitle">提交</h2>
+          </div>
+          <button type="button" class="icon-button" id="closeModal" aria-label="关闭弹窗">×</button>
+        </div>
+        <form id="betaForm" class="beta-form">
+          <div id="formFields"></div>
+          <label class="checkline">
+            <input type="checkbox" name="consent" required />
+            <span>我确认已去除患者姓名、住院号、身份证号、电话、面部照片等可识别信息，并理解本平台内测内容不替代正式诊疗。</span>
+          </label>
+          <div class="modal-actions">
+            <button class="ghost-button" type="button" id="cancelForm">取消</button>
+            <button class="primary-button" type="submit">提交到内测队列</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="netlify-form-definitions" aria-hidden="true">
+      <form name="case-submission" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="case-submission" />
+        <input name="bot-field" />
+        <input name="title" />
+        <input name="specialty" />
+        <textarea name="summary"></textarea>
+        <textarea name="question"></textarea>
+        <input name="files" />
+        <input name="createdAt" />
+      </form>
+      <form name="consult-booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="consult-booking" />
+        <input name="bot-field" />
+        <input name="title" />
+        <input name="expert" />
+        <input name="budget" />
+        <textarea name="question"></textarea>
+        <input name="createdAt" />
+      </form>
+      <form name="bounty-task" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="bounty-task" />
+        <input name="bot-field" />
+        <input name="title" />
+        <input name="reward" />
+        <input name="deadline" />
+        <textarea name="question"></textarea>
+        <input name="createdAt" />
+      </form>
+      <form name="beta-waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="beta-waitlist" />
+        <input name="bot-field" />
+        <input name="title" />
+        <input name="role" />
+        <input name="contact" />
+        <textarea name="question"></textarea>
+        <input name="createdAt" />
+      </form>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
