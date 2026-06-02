@@ -45,6 +45,17 @@
         <section class="hero-grid" aria-label="医学理想国平台概览">
           <article class="hero-card">
             <img src="assets/image4.png" alt="Med-Utopia 医学科技视觉" />
+            <div class="hero-diagnostics" aria-hidden="true">
+              <svg class="ecg-trace" viewBox="0 0 420 120">
+                <path d="M0 72 H64 L82 72 L98 40 L118 100 L140 72 H198 L216 72 L232 54 L248 72 H420" />
+              </svg>
+              <div class="diagnostic-lens">
+                <span></span>
+              </div>
+              <div class="vital-node node-a">SpO2 98</div>
+              <div class="vital-node node-b">ECG clean</div>
+              <div class="vital-node node-c">Signal 0.92</div>
+            </div>
             <div class="hero-copy">
               <p class="eyebrow">Med-Utopia</p>
               <h1>让医学智慧被看见。</h1>
@@ -72,92 +83,63 @@
           </article>
         </section>
 
-        <section class="anatomy-section" aria-label="近期优质文献解剖图">
+        <section class="literature-section" aria-label="近期优质文献分类">
           <div class="section-head compact">
-            <p>Literature Anatomy</p>
-            <h2>文献长成器官</h2>
+            <p>Literature Atlas</p>
+            <h2>按医学领域阅读</h2>
           </div>
-          <div class="anatomy-grid">
-            <article class="anatomy-stage" id="anatomyStage" data-active="cardio">
-              <svg class="paper-svg" viewBox="0 0 980 620" role="img" aria-label="由医学文献标题组成的心脏和肋骨形状">
-                <defs>
-                  <path id="heartTop" d="M248 268 C290 124 430 132 492 252 C558 132 700 124 744 268" />
-                  <path id="heartLeft" d="M260 300 C304 418 430 430 492 510" />
-                  <path id="heartRight" d="M740 300 C696 418 570 430 492 510" />
-                  <path id="ribOne" d="M142 152 C296 72 684 72 838 152" />
-                  <path id="ribTwo" d="M112 236 C286 142 694 142 868 236" />
-                  <path id="ribThree" d="M104 320 C286 230 694 230 876 320" />
-                  <path id="ribFour" d="M132 404 C306 320 674 320 848 404" />
-                  <path id="spine" d="M492 116 C482 220 482 342 492 526" />
-                </defs>
-                <g class="organ-guide" aria-hidden="true">
-                  <path d="M248 268 C290 124 430 132 492 252 C558 132 700 124 744 268 C740 385 610 438 492 510 C374 438 252 385 248 268Z" />
-                  <path d="M142 152 C296 72 684 72 838 152" />
-                  <path d="M112 236 C286 142 694 142 868 236" />
-                  <path d="M104 320 C286 230 694 230 876 320" />
-                  <path d="M132 404 C306 320 674 320 848 404" />
-                </g>
-                <text class="paper-text cardio-text">
-                  <textPath href="#heartTop" startOffset="0%">
-                    Oral PCSK9 inhibition · enlicitide · LDL cholesterol · cardiovascular prevention · NEJM 2026 ·
-                  </textPath>
-                </text>
-                <text class="paper-text cardio-text">
-                  <textPath href="#heartLeft" startOffset="4%">
-                    Physiologic pacing in heart failure · conduction system rhythm · clinical outcomes ·
-                  </textPath>
-                </text>
-                <text class="paper-text cardio-text">
-                  <textPath href="#heartRight" startOffset="0%">
-                    Heart failure signals · device therapy · risk stratification · curated cardiology evidence ·
-                  </textPath>
-                </text>
-                <text class="paper-text ai-text">
-                  <textPath href="#ribOne" startOffset="3%">
-                    Retinal imaging AI · multidisease detection · foundation model · Nature Medicine 2026 ·
-                  </textPath>
-                </text>
-                <text class="paper-text lung-text">
-                  <textPath href="#ribTwo" startOffset="8%">
-                    LungIMPACT · AI chest X-ray prioritization · lung cancer pathway · randomized trial ·
-                  </textPath>
-                </text>
-                <text class="paper-text ai-text">
-                  <textPath href="#ribThree" startOffset="2%">
-                    AI-discovered drug target · idiopathic pulmonary fibrosis · translational clinical trial ·
-                  </textPath>
-                </text>
-                <text class="paper-text retina-text">
-                  <textPath href="#ribFour" startOffset="7%">
-                    Imaging biomarkers · multimodal diagnosis · clinical triage · specialist review ·
-                  </textPath>
-                </text>
-                <text class="paper-text spine-text">
-                  <textPath href="#spine" startOffset="0%">
-                    curated evidence · expert review · signal not noise · Med-Utopia ·
-                  </textPath>
-                </text>
-              </svg>
+          <div class="literature-grid">
+            <article class="literature-card active" data-field="cardio">
+              <div class="field-icon heart-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <path d="M32 52 C18 40 10 31 10 21 C10 13 16 9 23 9 C27 9 30 11 32 15 C34 11 37 9 41 9 C48 9 54 13 54 21 C54 31 46 40 32 52Z" />
+                  <path d="M13 32 H22 L26 24 L33 42 L39 30 H51" />
+                </svg>
+              </div>
+              <span>Cardiology</span>
+              <h3>心血管与心衰</h3>
+              <p>Enlicitide / PCSK9、physiologic pacing、ASCVD 风险。</p>
+              <small>NEJM · 2026</small>
             </article>
-
-            <aside class="paper-index" aria-label="文献索引">
-              <button class="paper-chip active" type="button" data-focus="cardio">
-                <span>NEJM</span>
-                <strong>Oral PCSK9 inhibition</strong>
-              </button>
-              <button class="paper-chip" type="button" data-focus="lung">
-                <span>Nature Medicine</span>
-                <strong>AI chest X-ray triage</strong>
-              </button>
-              <button class="paper-chip" type="button" data-focus="retina">
-                <span>Nature Medicine</span>
-                <strong>Retinal imaging AI</strong>
-              </button>
-              <button class="paper-chip" type="button" data-focus="ai">
-                <span>Translational AI</span>
-                <strong>AI-discovered target</strong>
-              </button>
-            </aside>
+            <article class="literature-card" data-field="imaging">
+              <div class="field-icon lung-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <path d="M30 10 V31 C24 20 18 16 13 16 C10 28 10 43 18 52 C25 49 29 41 30 32" />
+                  <path d="M34 10 V31 C40 20 46 16 51 16 C54 28 54 43 46 52 C39 49 35 41 34 32" />
+                  <path d="M32 10 V54" />
+                </svg>
+              </div>
+              <span>Imaging</span>
+              <h3>影像与肿瘤通路</h3>
+              <p>LungIMPACT、胸片 AI 分诊、肺癌诊断路径。</p>
+              <small>Nature Medicine · 2026</small>
+            </article>
+            <article class="literature-card" data-field="ai">
+              <div class="field-icon chip-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <rect x="18" y="18" width="28" height="28" rx="5" />
+                  <path d="M24 10 V18 M32 10 V18 M40 10 V18 M24 46 V54 M32 46 V54 M40 46 V54 M10 24 H18 M10 32 H18 M10 40 H18 M46 24 H54 M46 32 H54 M46 40 H54" />
+                  <path d="M27 33 L31 37 L39 27" />
+                </svg>
+              </div>
+              <span>AI Medicine</span>
+              <h3>医学 AI 与转化</h3>
+              <p>多模态筛查、药物靶点、临床工作流自动化。</p>
+              <small>Translational AI</small>
+            </article>
+            <article class="literature-card" data-field="retina">
+              <div class="field-icon eye-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <path d="M8 32 C15 20 23 16 32 16 C41 16 49 20 56 32 C49 44 41 48 32 48 C23 48 15 44 8 32Z" />
+                  <circle cx="32" cy="32" r="9" />
+                  <circle cx="32" cy="32" r="3" />
+                </svg>
+              </div>
+              <span>Retina</span>
+              <h3>视网膜多病种筛查</h3>
+              <p>Reti-Pioneer、代谢疾病、社区筛查整合。</p>
+              <small>Nature Medicine · 2026</small>
+            </article>
           </div>
         </section>
 

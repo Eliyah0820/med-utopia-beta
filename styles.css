@@ -250,8 +250,7 @@ main {
 .glass-card,
 .panel,
 .record-card,
-.anatomy-stage,
-.paper-chip {
+.literature-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
@@ -263,8 +262,7 @@ main {
 .glass-card:hover,
 .panel:hover,
 .record-card:hover,
-.paper-chip:hover,
-.anatomy-stage:hover {
+.literature-card:hover {
   transform: translateY(-4px);
   border-color: rgba(76, 191, 209, 0.38);
   box-shadow: 0 28px 80px rgba(23, 65, 69, 0.18);
@@ -277,6 +275,7 @@ main {
   display: grid;
   align-items: end;
   position: relative;
+  cursor: crosshair;
 }
 
 .hero-card img {
@@ -300,9 +299,112 @@ main {
 
 .hero-copy {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 650px;
   padding: clamp(28px, 5vw, 58px);
+}
+
+.hero-diagnostics {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.diagnostic-lens {
+  position: absolute;
+  left: var(--mx, 70%);
+  top: var(--my, 36%);
+  width: 118px;
+  height: 118px;
+  border: 1px solid rgba(19, 46, 50, 0.24);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, rgba(139, 232, 209, 0.26), transparent 58%),
+    linear-gradient(90deg, transparent 49%, rgba(19, 46, 50, 0.28) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(19, 46, 50, 0.28) 50%, transparent 51%);
+  box-shadow:
+    0 0 0 10px rgba(139, 232, 209, 0.08),
+    0 22px 70px rgba(76, 191, 209, 0.28);
+  transition: left 80ms ease-out, top 80ms ease-out, transform 180ms ease;
+}
+
+.diagnostic-lens span {
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(19, 46, 50, 0.22);
+  border-radius: 50%;
+  animation: scanPulse 2.6s ease-in-out infinite;
+}
+
+.ecg-trace {
+  position: absolute;
+  left: 44%;
+  top: 12%;
+  width: min(46vw, 520px);
+  opacity: 0.62;
+  transform: translate3d(var(--tx, 0), var(--ty, 0), 0);
+  transition: transform 160ms ease-out;
+}
+
+.ecg-trace path {
+  fill: none;
+  stroke: rgba(13, 96, 105, 0.58);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 650;
+  stroke-dashoffset: 650;
+  animation: drawTrace 3.8s ease-in-out infinite;
+}
+
+.vital-node {
+  position: absolute;
+  padding: 8px 10px;
+  border: 1px solid rgba(17, 27, 31, 0.12);
+  border-radius: var(--radius);
+  color: #284348;
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  transform: translate3d(calc(var(--tx, 0px) * -0.8), calc(var(--ty, 0px) * -0.8), 0);
+}
+
+.node-a {
+  right: 11%;
+  top: 25%;
+}
+
+.node-b {
+  right: 23%;
+  bottom: 30%;
+}
+
+.node-c {
+  left: 49%;
+  bottom: 18%;
+}
+
+@keyframes scanPulse {
+  50% {
+    transform: scale(0.82);
+    opacity: 0.6;
+  }
+}
+
+@keyframes drawTrace {
+  45%,
+  60% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -650;
+  }
 }
 
 .eyebrow,
@@ -401,94 +503,44 @@ h1 {
   margin-top: 0;
 }
 
-.anatomy-section {
+.literature-section {
   margin-top: 54px;
 }
 
-.anatomy-grid {
+.literature-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
 
-.anatomy-stage {
-  min-height: 520px;
+.literature-card {
+  min-height: 300px;
   position: relative;
   overflow: hidden;
+  padding: 22px;
   background:
-    radial-gradient(circle at var(--mx, 52%) var(--my, 42%), rgba(139, 232, 209, 0.28), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(232, 247, 245, 0.9));
-}
-
-.anatomy-stage::before {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border: 1px solid rgba(17, 27, 31, 0.07);
-  border-radius: var(--radius);
-  pointer-events: none;
-}
-
-.paper-svg {
-  width: 100%;
-  height: 100%;
-  min-height: 520px;
-  display: block;
-  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0);
-  transition: transform 160ms ease-out;
-}
-
-.organ-guide path {
-  fill: none;
-  stroke: rgba(17, 27, 31, 0.09);
-  stroke-width: 1.5;
-}
-
-.organ-guide path:first-child {
-  fill: rgba(160, 78, 104, 0.04);
-  stroke: rgba(160, 78, 104, 0.12);
-}
-
-.paper-text {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  fill: rgba(34, 63, 70, 0.55);
-  transition: fill 220ms ease, font-size 220ms ease, letter-spacing 220ms ease;
-}
-
-.spine-text {
-  writing-mode: tb;
-  font-size: 12px;
-  fill: rgba(184, 150, 77, 0.58);
-}
-
-.anatomy-stage[data-active="cardio"] .cardio-text,
-.anatomy-stage[data-active="lung"] .lung-text,
-.anatomy-stage[data-active="retina"] .retina-text,
-.anatomy-stage[data-active="ai"] .ai-text {
-  fill: var(--wine);
-  font-size: 17px;
-  letter-spacing: 0.2em;
-}
-
-.paper-index {
-  display: grid;
-  gap: 12px;
-}
-
-.paper-chip {
-  min-height: 116px;
-  width: 100%;
-  text-align: left;
-  padding: 18px;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at var(--mx, 80%) var(--my, 20%), rgba(139, 232, 209, 0.22), transparent 38%),
+    radial-gradient(circle at var(--mx, 80%) var(--my, 18%), rgba(139, 232, 209, 0.24), transparent 40%),
     rgba(255, 255, 255, 0.74);
 }
 
-.paper-chip span {
+.literature-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 18px 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--mint), var(--aqua), var(--wine));
+  transform: scaleX(0.28);
+  transform-origin: left;
+  transition: transform 240ms ease;
+}
+
+.literature-card:hover::after,
+.literature-card.active::after {
+  transform: scaleX(1);
+}
+
+.literature-card span {
   display: block;
   color: var(--blue);
   font-size: 12px;
@@ -497,22 +549,73 @@ h1 {
   text-transform: uppercase;
 }
 
-.paper-chip strong {
-  display: block;
-  margin-top: 12px;
-  font-size: 24px;
-  line-height: 1.1;
+.literature-card h3 {
+  margin: 18px 0 14px;
+  font-size: 27px;
+  line-height: 1.08;
 }
 
-.paper-chip.active {
+.literature-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.literature-card small {
+  position: absolute;
+  left: 22px;
+  bottom: 34px;
+  color: #7e8d91;
+  font-weight: 800;
+}
+
+.literature-card.active {
   color: #effffb;
   background:
     radial-gradient(circle at 80% 18%, rgba(139, 232, 209, 0.28), transparent 40%),
     linear-gradient(145deg, #132e32, #254a50);
 }
 
-.paper-chip.active span {
+.literature-card.active span,
+.literature-card.active p,
+.literature-card.active small {
   color: rgba(239, 255, 251, 0.64);
+}
+
+.field-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.field-icon svg {
+  width: 42px;
+  height: 42px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.heart-icon {
+  color: var(--wine);
+}
+
+.lung-icon {
+  color: var(--blue);
+}
+
+.chip-icon {
+  color: #0d6069;
+}
+
+.eye-icon {
+  color: var(--gold);
 }
 
 .workspace-grid {
@@ -950,11 +1053,7 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .anatomy-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .paper-index {
+  .literature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -979,13 +1078,22 @@ h1 {
 
   .hero-grid,
   .workspace-grid,
-  .paper-index {
+  .literature-grid {
     grid-template-columns: 1fr;
   }
 
-  .anatomy-stage,
-  .paper-svg {
-    min-height: 430px;
+  .hero-diagnostics {
+    opacity: 0.55;
+  }
+
+  .diagnostic-lens {
+    width: 86px;
+    height: 86px;
+  }
+
+  .ecg-trace,
+  .vital-node {
+    display: none;
   }
 
   .span-2,

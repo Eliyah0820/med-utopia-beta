@@ -347,7 +347,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !modalBackdrop.hidden) closeModal();
 });
 
-document.querySelectorAll(".hero-card, .glass-card, .panel, .record-card, .anatomy-stage, .paper-chip").forEach((card) => {
+document.querySelectorAll(".hero-card, .glass-card, .panel, .record-card, .literature-card").forEach((card) => {
   card.addEventListener("pointermove", (event) => {
     const rect = card.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -363,16 +363,14 @@ document.querySelectorAll(".hero-card, .glass-card, .panel, .record-card, .anato
   });
 });
 
-const anatomyStage = document.querySelector("#anatomyStage");
-document.querySelectorAll(".paper-chip").forEach((chip) => {
+document.querySelectorAll(".literature-card").forEach((card) => {
   const activate = () => {
-    document.querySelectorAll(".paper-chip").forEach((item) => item.classList.remove("active"));
-    chip.classList.add("active");
-    anatomyStage.dataset.active = chip.dataset.focus;
+    document.querySelectorAll(".literature-card").forEach((item) => item.classList.remove("active"));
+    card.classList.add("active");
   };
-  chip.addEventListener("mouseenter", activate);
-  chip.addEventListener("focus", activate);
-  chip.addEventListener("click", activate);
+  card.addEventListener("mouseenter", activate);
+  card.addEventListener("focus", activate);
+  card.addEventListener("click", activate);
 });
 
 renderAll();
