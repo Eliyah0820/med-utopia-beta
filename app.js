@@ -39,15 +39,15 @@ const formConfigs = {
     ]
   },
   waitlist: {
-    eyebrow: "Beta Waitlist",
-    title: "申请内测席位",
-    typeLabel: "内测申请",
+    eyebrow: "Join Med-Utopia",
+    title: "申请加入",
+    typeLabel: "申请",
     netlifyName: "beta-waitlist",
     fields: [
       { name: "title", label: "姓名或昵称", placeholder: "例如：小宝 / Dr. Chen", required: true },
       { name: "role", label: "你的身份", placeholder: "医学生 / 医生 / 专家 / 药企 / 投资人", required: true },
       { name: "contact", label: "联系方式", placeholder: "微信、邮箱或手机号", required: true },
-      { name: "question", label: "想试用的功能", type: "textarea", placeholder: "病例复盘、学术挂号、悬赏、医学美学引擎等" }
+      { name: "question", label: "关注的功能", type: "textarea", placeholder: "病例复盘、学术挂号、悬赏、医学美学引擎等" }
     ]
   }
 };
@@ -202,7 +202,7 @@ function renderFeed(records) {
     feed.innerHTML = `
       <div class="empty-state">
         <strong>还没有提交内容</strong>
-        <p>点击“提交病例”“发起学术挂号”或“发布悬赏”，这里会出现策展流。</p>
+        <p>提交病例、挂号或悬赏后，这里会出现策展流。</p>
       </div>
     `;
     return;
@@ -232,7 +232,7 @@ function renderRecords(records) {
     list.innerHTML = `
       <div class="empty-state">
         <strong>没有匹配记录</strong>
-        <p>提交一次内测表单，或切换筛选条件查看不同类型的记录。</p>
+        <p>提交一次表单，或切换筛选条件查看记录。</p>
       </div>
     `;
     return;
@@ -279,10 +279,10 @@ function seedDemoRecords() {
 }
 
 function clearRecords() {
-  if (!confirm("确认清空本机浏览器里的内测记录？")) return;
+  if (!confirm("确认清空当前记录？")) return;
   saveRecords([]);
   renderAll();
-  showToast("本机记录已清空");
+  showToast("记录已清空");
 }
 
 function showToast(message) {
