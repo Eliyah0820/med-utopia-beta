@@ -249,12 +249,25 @@ main {
 .hero-card,
 .glass-card,
 .panel,
-.record-card {
+.record-card,
+.anatomy-stage,
+.paper-chip {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.glass-card:hover,
+.panel:hover,
+.record-card:hover,
+.paper-chip:hover,
+.anatomy-stage:hover {
+  transform: translateY(-4px);
+  border-color: rgba(76, 191, 209, 0.38);
+  box-shadow: 0 28px 80px rgba(23, 65, 69, 0.18);
 }
 
 .hero-card {
@@ -386,6 +399,120 @@ h1 {
 
 .section-head.compact {
   margin-top: 0;
+}
+
+.anatomy-section {
+  margin-top: 54px;
+}
+
+.anatomy-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: 16px;
+}
+
+.anatomy-stage {
+  min-height: 520px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at var(--mx, 52%) var(--my, 42%), rgba(139, 232, 209, 0.28), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(232, 247, 245, 0.9));
+}
+
+.anatomy-stage::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(17, 27, 31, 0.07);
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+.paper-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  display: block;
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0);
+  transition: transform 160ms ease-out;
+}
+
+.organ-guide path {
+  fill: none;
+  stroke: rgba(17, 27, 31, 0.09);
+  stroke-width: 1.5;
+}
+
+.organ-guide path:first-child {
+  fill: rgba(160, 78, 104, 0.04);
+  stroke: rgba(160, 78, 104, 0.12);
+}
+
+.paper-text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  fill: rgba(34, 63, 70, 0.55);
+  transition: fill 220ms ease, font-size 220ms ease, letter-spacing 220ms ease;
+}
+
+.spine-text {
+  writing-mode: tb;
+  font-size: 12px;
+  fill: rgba(184, 150, 77, 0.58);
+}
+
+.anatomy-stage[data-active="cardio"] .cardio-text,
+.anatomy-stage[data-active="lung"] .lung-text,
+.anatomy-stage[data-active="retina"] .retina-text,
+.anatomy-stage[data-active="ai"] .ai-text {
+  fill: var(--wine);
+  font-size: 17px;
+  letter-spacing: 0.2em;
+}
+
+.paper-index {
+  display: grid;
+  gap: 12px;
+}
+
+.paper-chip {
+  min-height: 116px;
+  width: 100%;
+  text-align: left;
+  padding: 18px;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at var(--mx, 80%) var(--my, 20%), rgba(139, 232, 209, 0.22), transparent 38%),
+    rgba(255, 255, 255, 0.74);
+}
+
+.paper-chip span {
+  display: block;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.paper-chip strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.paper-chip.active {
+  color: #effffb;
+  background:
+    radial-gradient(circle at 80% 18%, rgba(139, 232, 209, 0.28), transparent 40%),
+    linear-gradient(145deg, #132e32, #254a50);
+}
+
+.paper-chip.active span {
+  color: rgba(239, 255, 251, 0.64);
 }
 
 .workspace-grid {
@@ -822,6 +949,14 @@ h1 {
   .workspace-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .anatomy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -843,8 +978,14 @@ h1 {
   }
 
   .hero-grid,
-  .workspace-grid {
+  .workspace-grid,
+  .paper-index {
     grid-template-columns: 1fr;
+  }
+
+  .anatomy-stage,
+  .paper-svg {
+    min-height: 430px;
   }
 
   .span-2,
