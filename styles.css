@@ -91,10 +91,10 @@ body.modal-open {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06), rgba(246, 251, 250, 0.2) 42%, rgba(246, 251, 250, 0.5)),
-    rgba(244, 247, 247, 0.22);
-  backdrop-filter: grayscale(1) contrast(1.05) brightness(1.02);
-  -webkit-backdrop-filter: grayscale(1) contrast(1.05) brightness(1.02);
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02), rgba(238, 238, 238, 0.24) 42%, rgba(216, 216, 216, 0.46)),
+    rgba(228, 228, 228, 0.42);
+  backdrop-filter: grayscale(1) saturate(0) contrast(1.32) brightness(0.82);
+  -webkit-backdrop-filter: grayscale(1) saturate(0) contrast(1.32) brightness(0.82);
   mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0%);
   animation: colorReveal 4.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
@@ -214,6 +214,7 @@ body.intro-done .intro-loader {
 }
 
 body.intro-playing .shell {
+  filter: grayscale(1) saturate(0) contrast(1.18) brightness(0.82);
   animation: pageWake 4.15s ease forwards;
 }
 
@@ -291,33 +292,33 @@ body.intro-playing .shell {
 
 @keyframes colorReveal {
   0% {
-    mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0.8%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0.8%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0.35%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0.35%);
   }
 
   14% {
-    mask-image: radial-gradient(circle at 50% 50%, transparent 13%, #000 13.8%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 13%, #000 13.8%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 10%, #000 10.35%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 10%, #000 10.35%);
   }
 
   26% {
-    mask-image: radial-gradient(circle at 50% 50%, transparent 15%, #000 15.8%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 15%, #000 15.8%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 13%, #000 13.35%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 13%, #000 13.35%);
   }
 
   34% {
-    mask-image: radial-gradient(circle at 50% 50%, transparent 30%, #000 31%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 30%, #000 31%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 28%, #000 28.45%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 28%, #000 28.45%);
   }
 
   48% {
-    mask-image: radial-gradient(circle at 50% 50%, transparent 33%, #000 34%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 33%, #000 34%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 34%, #000 34.45%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 34%, #000 34.45%);
   }
 
   58% {
-    mask-image: radial-gradient(circle at 50% 50%, transparent 82%, #000 83%);
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 82%, #000 83%);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 88%, #000 88.6%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 88%, #000 88.6%);
   }
 
   100% {
@@ -329,14 +330,21 @@ body.intro-playing .shell {
 @keyframes pageWake {
   0% {
     transform: scale(1.018);
+    filter: grayscale(1) saturate(0) contrast(1.18) brightness(0.82);
+  }
+
+  58% {
+    filter: grayscale(1) saturate(0) contrast(1.18) brightness(0.82);
   }
 
   62% {
     transform: scale(1);
+    filter: grayscale(0.2) saturate(0.8) contrast(1.05) brightness(0.96);
   }
 
   100% {
     transform: none;
+    filter: none;
   }
 }
 
