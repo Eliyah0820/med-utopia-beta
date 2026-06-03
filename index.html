@@ -130,7 +130,62 @@
           </div>
         </section>
 
-        <section class="rotating-story" id="story" aria-label="医学理想国滚动叙事">
+        <section class="genome-corridor" id="story" aria-label="医学理想国 DNA 贯穿叙事">
+          <div class="genome-spine" aria-hidden="true">
+            <svg class="genome-helix" viewBox="0 0 980 2300" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="genomeA" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8be8d1" />
+                  <stop offset="45%" stop-color="#4cbfd1" />
+                  <stop offset="100%" stop-color="#a04e68" />
+                </linearGradient>
+                <linearGradient id="genomeB" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f4d485" />
+                  <stop offset="52%" stop-color="#8be8d1" />
+                  <stop offset="100%" stop-color="#2f6fa5" />
+                </linearGradient>
+              </defs>
+              <g class="genome-rungs">
+                <path d="M392 72 L588 116" />
+                <path d="M320 228 L660 284" />
+                <path d="M360 392 L620 438" />
+                <path d="M450 548 L530 586" />
+                <path d="M334 704 L646 756" />
+                <path d="M310 872 L670 930" />
+                <path d="M408 1038 L572 1082" />
+                <path d="M460 1208 L520 1248" />
+                <path d="M352 1370 L628 1422" />
+                <path d="M314 1536 L666 1592" />
+                <path d="M394 1706 L586 1754" />
+                <path d="M458 1870 L522 1912" />
+                <path d="M342 2032 L638 2086" />
+                <path d="M384 2202 L596 2242" />
+              </g>
+              <path class="genome-strand genome-one" d="M382 40 C760 160 214 286 520 420 C822 552 170 686 492 828 C800 962 220 1096 530 1236 C822 1370 172 1508 500 1648 C790 1772 226 1922 520 2054 C700 2142 496 2214 602 2280" />
+              <path class="genome-strand genome-two" d="M598 40 C220 160 766 286 460 420 C158 552 810 686 488 828 C180 962 760 1096 450 1236 C158 1370 808 1508 480 1648 C190 1772 754 1922 460 2054 C280 2142 484 2214 378 2280" />
+              <g class="genome-nodes">
+                <circle cx="382" cy="40" r="10" />
+                <circle cx="598" cy="40" r="10" />
+                <circle cx="320" cy="228" r="8" />
+                <circle cx="660" cy="284" r="8" />
+                <circle cx="450" cy="548" r="9" />
+                <circle cx="530" cy="586" r="9" />
+                <circle cx="310" cy="872" r="8" />
+                <circle cx="670" cy="930" r="8" />
+                <circle cx="460" cy="1208" r="9" />
+                <circle cx="520" cy="1248" r="9" />
+                <circle cx="314" cy="1536" r="8" />
+                <circle cx="666" cy="1592" r="8" />
+                <circle cx="458" cy="1870" r="9" />
+                <circle cx="522" cy="1912" r="9" />
+                <circle cx="384" cy="2202" r="10" />
+                <circle cx="596" cy="2242" r="10" />
+              </g>
+            </svg>
+            <div class="genome-progress"><span></span></div>
+          </div>
+
+        <section class="rotating-story" aria-label="医学理想国滚动叙事">
           <div class="story-sticky">
             <div class="story-copy">
               <p class="eyebrow">Scroll Anatomy</p>
@@ -295,6 +350,7 @@
             <button type="button" class="ghost-button danger" id="clearRecords">清空</button>
           </div>
           <div class="record-list" id="recordList" aria-live="polite"></div>
+        </section>
         </section>
 
         <footer class="footer">

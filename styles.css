@@ -750,8 +750,156 @@ main {
   font-size: 12px;
 }
 
+.genome-corridor {
+  --corridor-progress: 0;
+  position: relative;
+  isolation: isolate;
+  margin-top: 34px;
+  padding-top: 1px;
+}
+
+.genome-corridor::before {
+  content: "";
+  position: absolute;
+  inset: 0 -22px;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(6, 24, 28, 0.04), rgba(6, 24, 28, 0.1) 42%, rgba(255, 255, 255, 0.08)),
+    linear-gradient(90deg, transparent, rgba(139, 232, 209, 0.08), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 5%, #000 94%, transparent);
+}
+
+.genome-spine {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  margin-bottom: -100vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.genome-spine::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(62vw, 760px);
+  height: 100%;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.58), transparent),
+    linear-gradient(180deg, transparent, rgba(139, 232, 209, 0.16), transparent);
+  opacity: 0.62;
+  filter: blur(26px);
+}
+
+.genome-helix {
+  position: absolute;
+  left: 50%;
+  top: -12vh;
+  width: min(980px, 78vw);
+  height: 124vh;
+  opacity: 0.88;
+  filter:
+    drop-shadow(0 0 18px rgba(139, 232, 209, 0.3))
+    drop-shadow(0 22px 60px rgba(76, 191, 209, 0.18));
+  transform:
+    translateX(-50%)
+    translateY(calc(var(--corridor-progress) * -22vh))
+    perspective(1050px)
+    rotateX(58deg)
+    rotateZ(calc(-7deg + var(--corridor-progress) * 14deg));
+  transform-origin: center;
+  transition: transform 80ms linear;
+}
+
+.genome-strand {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 34 18;
+  animation: genomeStrandFlow 8s linear infinite;
+}
+
+.genome-one {
+  stroke: url("#genomeA");
+}
+
+.genome-two {
+  stroke: url("#genomeB");
+  animation-direction: reverse;
+}
+
+.genome-rungs path {
+  fill: none;
+  stroke: rgba(17, 27, 31, 0.22);
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.56;
+  transform-origin: center;
+  animation: genomeRungGlow 4s ease-in-out infinite;
+}
+
+.genome-rungs path:nth-child(2n) {
+  animation-delay: 0.7s;
+}
+
+.genome-rungs path:nth-child(3n) {
+  animation-delay: 1.2s;
+}
+
+.genome-nodes circle {
+  fill: rgba(255, 255, 255, 0.9);
+  stroke: rgba(76, 191, 209, 0.78);
+  stroke-width: 3;
+}
+
+.genome-progress {
+  position: absolute;
+  left: 50%;
+  top: 11vh;
+  width: 3px;
+  height: 78vh;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(17, 27, 31, 0.08);
+  overflow: hidden;
+}
+
+.genome-progress span {
+  display: block;
+  width: 100%;
+  height: calc(var(--corridor-progress) * 100%);
+  border-radius: inherit;
+  background: linear-gradient(to bottom, var(--mint), var(--aqua), var(--wine));
+  box-shadow: 0 0 22px rgba(76, 191, 209, 0.54);
+}
+
+.genome-corridor > section,
+.genome-corridor > .section-head,
+.genome-corridor > .workspace-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.genome-corridor .literature-section,
+.genome-corridor > .section-head,
+.genome-corridor .workspace-grid,
+.genome-corridor .records-section {
+  opacity: 0.82;
+  transform: translateY(22px) rotateX(1.4deg);
+  transition: opacity 420ms ease, transform 420ms ease;
+  transform-origin: center top;
+}
+
+.genome-corridor .genome-section-active {
+  opacity: 1;
+  transform: none;
+}
+
 .rotating-story {
-  min-height: 270vh;
+  min-height: 292vh;
   position: relative;
 }
 
@@ -795,10 +943,14 @@ main {
   position: absolute;
   left: 50%;
   top: 6%;
-  width: 2px;
+  width: 112px;
   height: 88%;
-  background: linear-gradient(to bottom, transparent, rgba(76, 191, 209, 0.7), rgba(160, 78, 104, 0.48), transparent);
-  transform: translateX(-50%) rotateX(58deg);
+  border: 1px solid rgba(76, 191, 209, 0.2);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at center, rgba(139, 232, 209, 0.16), transparent 58%),
+    linear-gradient(to bottom, transparent, rgba(76, 191, 209, 0.16), rgba(160, 78, 104, 0.12), transparent);
+  transform: translateX(-50%) rotateX(58deg) rotateZ(calc(var(--corridor-progress) * 180deg));
 }
 
 .story-panel {
@@ -823,6 +975,25 @@ main {
 .story-panel.active {
   border-color: rgba(76, 191, 209, 0.46);
   box-shadow: 0 32px 88px rgba(23, 65, 69, 0.22);
+}
+
+.story-panel::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 96px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(76, 191, 209, 0), rgba(76, 191, 209, 0.66));
+  opacity: 0.62;
+}
+
+.story-panel:nth-child(odd)::before {
+  right: -96px;
+}
+
+.story-panel:nth-child(even)::before {
+  left: -96px;
+  transform: rotate(180deg);
 }
 
 .story-panel span {
@@ -877,6 +1048,19 @@ main {
   50% {
     opacity: 0.36;
     stroke-width: 3;
+  }
+}
+
+@keyframes genomeStrandFlow {
+  to {
+    stroke-dashoffset: -160;
+  }
+}
+
+@keyframes genomeRungGlow {
+  50% {
+    opacity: 0.92;
+    stroke: rgba(139, 232, 209, 0.54);
   }
 }
 
@@ -1722,6 +1906,15 @@ h1 {
   .story-wheel {
     min-height: 560px;
   }
+
+  .genome-spine::before {
+    width: 86vw;
+  }
+
+  .genome-helix {
+    width: 960px;
+    opacity: 0.66;
+  }
 }
 
 @media (max-width: 760px) {
@@ -1795,6 +1988,39 @@ h1 {
     min-height: 240vh;
   }
 
+  .genome-corridor {
+    margin-top: 20px;
+  }
+
+  .genome-corridor::before {
+    inset: 0 -14px;
+  }
+
+  .genome-spine {
+    opacity: 0.62;
+  }
+
+  .genome-spine::before {
+    width: 120vw;
+  }
+
+  .genome-helix {
+    left: 52%;
+    width: 760px;
+    height: 116vh;
+    opacity: 0.54;
+    transform:
+      translateX(-50%)
+      translateY(calc(var(--corridor-progress) * -18vh))
+      perspective(900px)
+      rotateX(62deg)
+      rotateZ(calc(-5deg + var(--corridor-progress) * 12deg));
+  }
+
+  .genome-progress {
+    opacity: 0.52;
+  }
+
   .story-sticky {
     min-height: 100vh;
     padding: 28px 0;
@@ -1820,6 +2046,10 @@ h1 {
 
   .story-panel h3 {
     font-size: 28px;
+  }
+
+  .story-panel::before {
+    display: none;
   }
 
   .hero-diagnostics {

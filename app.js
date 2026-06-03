@@ -88,8 +88,12 @@ const formFields = document.querySelector("#formFields");
 const betaForm = document.querySelector("#betaForm");
 const toast = document.querySelector("#toast");
 const introLoader = document.querySelector("#introLoader");
+const genomeCorridor = document.querySelector(".genome-corridor");
 const rotatingStory = document.querySelector(".rotating-story");
 const storyPanels = Array.from(document.querySelectorAll("[data-story-panel]"));
+const genomeSections = Array.from(document.querySelectorAll(
+  ".genome-corridor .literature-section, .genome-corridor > .section-head, .genome-corridor .workspace-grid, .genome-corridor .records-section"
+));
 
 if (introLoader) {
   const finishIntro = () => {
@@ -378,23 +382,35 @@ document.querySelectorAll(".opener-screen, .story-panel, .hero-card, .glass-card
 });
 
 function updateStoryPanels() {
+  if (genomeCorridor) {
+    const corridorRect = genomeCorridor.getBoundingClientRect();
+    const corridorTravel = Math.max(1, corridorRect.height - window.innerHeight);
+    const corridorProgress = Math.min(1, Math.max(0, -corridorRect.top / corridorTravel));
+    genomeCorridor.style.setProperty("--corridor-progress", corridorProgress.toFixed(3));
+  }
+
   if (!rotatingStory || !storyPanels.length) return;
   const rect = rotatingStory.getBoundingClientRect();
   const travel = Math.max(1, rect.height - window.innerHeight);
   const progress = Math.min(1, Math.max(0, -rect.top / travel));
   const panelProgress = progress * (storyPanels.length - 1);
-  let activeIndex = Math.round(panelProgress);
+  const activeIndex = Math.round(panelProgress);
+  const isCompact = window.innerWidth < 760;
 
   storyPanels.forEach((panel, index) => {
     const offset = index - panelProgress;
     const distance = Math.abs(offset);
+    const side = index % 2 === 0 ? -1 : 1;
+    const baseX = isCompact ? 0 : side * Math.min(280, window.innerWidth * 0.18);
+    const translateX = baseX * Math.max(0.52, 1 - distance * 0.16);
     const rotateX = offset * -28;
+    const rotateY = isCompact ? 0 : side * -10 + offset * 5;
     const translateY = offset * 150;
-    const translateZ = 110 - distance * 145;
+    const translateZ = 150 - distance * 150;
     const scale = Math.max(0.82, 1 - distance * 0.08);
     const opacity = Math.max(0.2, 1 - distance * 0.28);
 
-    panel.style.transform = `translate(-50%, -50%) translate3d(0, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) scale(${scale})`;
+    panel.style.transform = `translate(-50%, -50%) translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
     panel.style.opacity = opacity.toFixed(2);
     panel.style.filter = `blur(${Math.min(distance * 1.2, 3).toFixed(1)}px)`;
     panel.style.zIndex = String(20 - Math.round(distance * 4));
@@ -404,6 +420,17 @@ function updateStoryPanels() {
 
 window.addEventListener("scroll", updateStoryPanels, { passive: true });
 window.addEventListener("resize", updateStoryPanels);
+
+if ("IntersectionObserver" in window) {
+  const genomeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("genome-section-active", entry.isIntersecting);
+    });
+  }, { threshold: 0.18 });
+  genomeSections.forEach((section) => genomeObserver.observe(section));
+} else {
+  genomeSections.forEach((section) => section.classList.add("genome-section-active"));
+}
 
 document.querySelectorAll(".literature-card").forEach((card) => {
   const activate = () => {
