@@ -63,6 +63,7 @@
 
         <section class="opener-screen" aria-label="医学理想国开屏">
           <div class="dna-backdrop" aria-hidden="true">
+            <canvas class="three-dna opener-three" data-dna-scene="opener"></canvas>
             <svg class="dna-helix" viewBox="0 0 920 720">
               <defs>
                 <linearGradient id="strandA" x1="0" y1="0" x2="1" y2="1">
@@ -132,6 +133,7 @@
 
         <section class="genome-corridor" id="story" aria-label="医学理想国 DNA 贯穿叙事">
           <div class="genome-spine" aria-hidden="true">
+            <canvas class="three-dna corridor-three" data-dna-scene="corridor"></canvas>
             <svg class="genome-helix" viewBox="0 0 980 2300" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="genomeA" x1="0" y1="0" x2="1" y2="1">
@@ -429,5 +431,6 @@
       </form>
     </div>
     <script src="app.js"></script>
+    <script type="module" src="dna-scene.js"></script>
   </body>
 </html>

@@ -647,6 +647,28 @@ main {
   transform: perspective(950px) rotateY(-18deg) rotateX(6deg);
 }
 
+.three-dna {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+body.three-ready .three-dna {
+  opacity: 1;
+}
+
+body.three-ready .dna-helix,
+body.three-ready .genome-helix {
+  opacity: 0.16;
+}
+
+.opener-three {
+  transform: translateX(3%);
+}
+
 .dna-helix {
   width: min(760px, 70vw);
   min-width: 520px;
@@ -777,6 +799,11 @@ main {
   margin-bottom: -100vh;
   overflow: hidden;
   pointer-events: none;
+}
+
+.corridor-three {
+  inset: -6vh 0 -10vh;
+  height: 116vh;
 }
 
 .genome-spine::before {
