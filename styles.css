@@ -60,6 +60,260 @@ body.modal-open {
   overflow: hidden;
 }
 
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #eafffb;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(139, 232, 209, 0.24), transparent 22%),
+    linear-gradient(145deg, #071719, #112f34 48%, #eaf7f5 49%, #f6fbfa 100%);
+  clip-path: circle(150% at 50% 50%);
+  animation: introExit 4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.intro-loader::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  opacity: 0.36;
+  background-image:
+    linear-gradient(rgba(139, 232, 209, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 232, 209, 0.14) 1px, transparent 1px);
+  background-size: 42px 42px;
+  transform: perspective(900px) rotateX(62deg) translateY(18%);
+}
+
+.intro-field {
+  position: relative;
+  width: min(520px, 82vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.heart-core {
+  position: relative;
+  z-index: 3;
+  width: 138px;
+  height: 138px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(139, 232, 209, 0.34);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(139, 232, 209, 0.2), rgba(19, 46, 50, 0.82) 62%, rgba(7, 23, 25, 0.92));
+  box-shadow:
+    0 0 0 12px rgba(139, 232, 209, 0.07),
+    0 0 54px rgba(139, 232, 209, 0.36);
+  animation: heartBeat 4s ease-in-out forwards;
+}
+
+.heart-core svg {
+  width: 86px;
+  height: 86px;
+  overflow: visible;
+}
+
+.heart-shell {
+  fill: rgba(139, 232, 209, 0.16);
+  stroke: rgba(234, 255, 251, 0.9);
+  stroke-width: 3;
+}
+
+.heart-circuit {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  animation: circuitDraw 4s ease-in-out forwards;
+}
+
+.circuit-two {
+  stroke-width: 2.4;
+  stroke: rgba(76, 191, 209, 0.82);
+}
+
+.pulse-ring {
+  position: absolute;
+  z-index: 2;
+  width: 138px;
+  height: 138px;
+  border: 1px solid rgba(139, 232, 209, 0.54);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.ring-one {
+  animation: pulseExpand 4s ease-out forwards;
+  animation-delay: 0.35s;
+}
+
+.ring-two {
+  animation: pulseExpand 4s ease-out forwards;
+  animation-delay: 1.1s;
+}
+
+.ring-three {
+  animation: pulseExpandFinal 4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  animation-delay: 1.85s;
+}
+
+.intro-label {
+  position: absolute;
+  z-index: 4;
+  top: calc(50% + 100px);
+  text-align: center;
+  opacity: 0;
+  animation: introText 4s ease forwards;
+}
+
+.intro-label span,
+.intro-label strong {
+  display: block;
+}
+
+.intro-label span {
+  color: rgba(234, 255, 251, 0.72);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.intro-label strong {
+  margin-top: 8px;
+  color: #effffb;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+body.intro-done .intro-loader {
+  display: none;
+}
+
+@keyframes heartBeat {
+  0%,
+  17%,
+  35%,
+  53% {
+    transform: scale(1);
+  }
+
+  12%,
+  30%,
+  48% {
+    transform: scale(1.22);
+    box-shadow:
+      0 0 0 18px rgba(139, 232, 209, 0.08),
+      0 0 78px rgba(139, 232, 209, 0.52);
+  }
+
+  76% {
+    transform: scale(0.92);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseExpand {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.92;
+  }
+
+  42% {
+    transform: scale(5.2);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(5.2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseExpandFinal {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+    background: rgba(139, 232, 209, 0.05);
+  }
+
+  55% {
+    transform: scale(12);
+    opacity: 0.86;
+  }
+
+  100% {
+    transform: scale(18);
+    opacity: 0;
+    background: rgba(246, 251, 250, 0.72);
+  }
+}
+
+@keyframes circuitDraw {
+  15%,
+  68% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -190;
+  }
+}
+
+@keyframes introText {
+  12%,
+  60% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes introExit {
+  0%,
+  66% {
+    opacity: 1;
+    clip-path: circle(150% at 50% 50%);
+  }
+
+  88% {
+    opacity: 1;
+    clip-path: circle(18% at 50% 50%);
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    clip-path: circle(0% at 50% 50%);
+  }
+}
+
 .shell {
   display: grid;
   grid-template-columns: 248px minmax(0, 1fr);
@@ -1144,5 +1398,21 @@ h1 {
   .modal-head,
   .beta-form {
     padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-loader {
+    animation-duration: 0.8s;
+  }
+
+  .heart-core,
+  .heart-circuit,
+  .pulse-ring,
+  .intro-label,
+  .ecg-trace path,
+  .diagnostic-lens span {
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
   }
 }

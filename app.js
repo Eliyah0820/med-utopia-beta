@@ -87,6 +87,15 @@ const modalEyebrow = document.querySelector("#modalEyebrow");
 const formFields = document.querySelector("#formFields");
 const betaForm = document.querySelector("#betaForm");
 const toast = document.querySelector("#toast");
+const introLoader = document.querySelector("#introLoader");
+
+if (introLoader) {
+  const finishIntro = () => document.body.classList.add("intro-done");
+  introLoader.addEventListener("animationend", (event) => {
+    if (event.animationName === "introExit") finishIntro();
+  });
+  window.setTimeout(finishIntro, 4600);
+}
 
 function getRecords() {
   try {
