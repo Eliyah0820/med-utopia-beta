@@ -90,7 +90,10 @@ const toast = document.querySelector("#toast");
 const introLoader = document.querySelector("#introLoader");
 
 if (introLoader) {
-  const finishIntro = () => document.body.classList.add("intro-done");
+  const finishIntro = () => {
+    document.body.classList.remove("intro-playing");
+    document.body.classList.add("intro-done");
+  };
   introLoader.addEventListener("animationend", (event) => {
     if (event.animationName === "introExit") finishIntro();
   });

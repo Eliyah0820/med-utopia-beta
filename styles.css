@@ -68,23 +68,36 @@ body.modal-open {
   place-items: center;
   overflow: hidden;
   color: #eafffb;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(139, 232, 209, 0.24), transparent 22%),
-    linear-gradient(145deg, #071719, #112f34 48%, #eaf7f5 49%, #f6fbfa 100%);
-  clip-path: circle(150% at 50% 50%);
-  animation: introExit 4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  background: transparent;
+  pointer-events: none;
+  animation: introExit 4.15s ease forwards;
 }
 
 .intro-loader::before {
   content: "";
   position: absolute;
   inset: -20%;
-  opacity: 0.36;
+  opacity: 0.22;
   background-image:
-    linear-gradient(rgba(139, 232, 209, 0.14) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 232, 209, 0.14) 1px, transparent 1px);
+    linear-gradient(rgba(17, 27, 31, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 27, 31, 0.12) 1px, transparent 1px);
   background-size: 42px 42px;
   transform: perspective(900px) rotateX(62deg) translateY(18%);
+  mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 16%);
+  animation: gridFade 4.15s ease forwards;
+}
+
+.mono-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06), rgba(246, 251, 250, 0.2) 42%, rgba(246, 251, 250, 0.5)),
+    rgba(244, 247, 247, 0.22);
+  backdrop-filter: grayscale(1) contrast(1.05) brightness(1.02);
+  -webkit-backdrop-filter: grayscale(1) contrast(1.05) brightness(1.02);
+  mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0%);
+  animation: colorReveal 4.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 .intro-field {
@@ -105,7 +118,9 @@ body.modal-open {
   border: 1px solid rgba(139, 232, 209, 0.34);
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(139, 232, 209, 0.2), rgba(19, 46, 50, 0.82) 62%, rgba(7, 23, 25, 0.92));
+    radial-gradient(circle, rgba(139, 232, 209, 0.2), rgba(19, 46, 50, 0.12) 62%, rgba(7, 23, 25, 0.04));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow:
     0 0 0 12px rgba(139, 232, 209, 0.07),
     0 0 54px rgba(139, 232, 209, 0.36);
@@ -119,8 +134,8 @@ body.modal-open {
 }
 
 .heart-shell {
-  fill: rgba(139, 232, 209, 0.16);
-  stroke: rgba(234, 255, 251, 0.9);
+  fill: rgba(139, 232, 209, 0.08);
+  stroke: rgba(13, 96, 105, 0.8);
   stroke-width: 3;
 }
 
@@ -180,7 +195,7 @@ body.modal-open {
 }
 
 .intro-label span {
-  color: rgba(234, 255, 251, 0.72);
+  color: rgba(19, 46, 50, 0.62);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.16em;
@@ -189,13 +204,17 @@ body.modal-open {
 
 .intro-label strong {
   margin-top: 8px;
-  color: #effffb;
+  color: var(--deep);
   font-size: 15px;
   letter-spacing: 0.04em;
 }
 
 body.intro-done .intro-loader {
   display: none;
+}
+
+body.intro-playing .shell {
+  animation: pageWake 4.15s ease forwards;
 }
 
 @keyframes heartBeat {
@@ -270,6 +289,68 @@ body.intro-done .intro-loader {
   }
 }
 
+@keyframes colorReveal {
+  0% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0.8%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, #000 0.8%);
+  }
+
+  14% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 13%, #000 13.8%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 13%, #000 13.8%);
+  }
+
+  26% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 15%, #000 15.8%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 15%, #000 15.8%);
+  }
+
+  34% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 30%, #000 31%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 30%, #000 31%);
+  }
+
+  48% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 33%, #000 34%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 33%, #000 34%);
+  }
+
+  58% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 82%, #000 83%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 82%, #000 83%);
+  }
+
+  100% {
+    mask-image: radial-gradient(circle at 50% 50%, transparent 150%, #000 151%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 150%, #000 151%);
+  }
+}
+
+@keyframes pageWake {
+  0% {
+    transform: scale(1.018);
+  }
+
+  62% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes gridFade {
+  0%,
+  58% {
+    opacity: 0.22;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes circuitDraw {
   15%,
   68% {
@@ -297,20 +378,13 @@ body.intro-done .intro-loader {
 
 @keyframes introExit {
   0%,
-  66% {
+  72% {
     opacity: 1;
-    clip-path: circle(150% at 50% 50%);
-  }
-
-  88% {
-    opacity: 1;
-    clip-path: circle(18% at 50% 50%);
   }
 
   100% {
     opacity: 0;
     visibility: hidden;
-    clip-path: circle(0% at 50% 50%);
   }
 }
 
