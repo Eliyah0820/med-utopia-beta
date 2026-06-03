@@ -88,6 +88,8 @@ const formFields = document.querySelector("#formFields");
 const betaForm = document.querySelector("#betaForm");
 const toast = document.querySelector("#toast");
 const introLoader = document.querySelector("#introLoader");
+const rotatingStory = document.querySelector(".rotating-story");
+const storyPanels = Array.from(document.querySelectorAll("[data-story-panel]"));
 
 if (introLoader) {
   const finishIntro = () => {
@@ -359,7 +361,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !modalBackdrop.hidden) closeModal();
 });
 
-document.querySelectorAll(".hero-card, .glass-card, .panel, .record-card, .literature-card").forEach((card) => {
+document.querySelectorAll(".opener-screen, .story-panel, .hero-card, .glass-card, .panel, .record-card, .literature-card").forEach((card) => {
   card.addEventListener("pointermove", (event) => {
     const rect = card.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -375,6 +377,34 @@ document.querySelectorAll(".hero-card, .glass-card, .panel, .record-card, .liter
   });
 });
 
+function updateStoryPanels() {
+  if (!rotatingStory || !storyPanels.length) return;
+  const rect = rotatingStory.getBoundingClientRect();
+  const travel = Math.max(1, rect.height - window.innerHeight);
+  const progress = Math.min(1, Math.max(0, -rect.top / travel));
+  const panelProgress = progress * (storyPanels.length - 1);
+  let activeIndex = Math.round(panelProgress);
+
+  storyPanels.forEach((panel, index) => {
+    const offset = index - panelProgress;
+    const distance = Math.abs(offset);
+    const rotateX = offset * -28;
+    const translateY = offset * 150;
+    const translateZ = 110 - distance * 145;
+    const scale = Math.max(0.82, 1 - distance * 0.08);
+    const opacity = Math.max(0.2, 1 - distance * 0.28);
+
+    panel.style.transform = `translate(-50%, -50%) translate3d(0, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) scale(${scale})`;
+    panel.style.opacity = opacity.toFixed(2);
+    panel.style.filter = `blur(${Math.min(distance * 1.2, 3).toFixed(1)}px)`;
+    panel.style.zIndex = String(20 - Math.round(distance * 4));
+    panel.classList.toggle("active", index === activeIndex);
+  });
+}
+
+window.addEventListener("scroll", updateStoryPanels, { passive: true });
+window.addEventListener("resize", updateStoryPanels);
+
 document.querySelectorAll(".literature-card").forEach((card) => {
   const activate = () => {
     document.querySelectorAll(".literature-card").forEach((item) => item.classList.remove("active"));
@@ -386,3 +416,4 @@ document.querySelectorAll(".literature-card").forEach((card) => {
 });
 
 renderAll();
+updateStoryPanels();

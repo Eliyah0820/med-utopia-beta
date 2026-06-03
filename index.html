@@ -61,48 +61,112 @@
           </div>
         </header>
 
-        <section class="hero-grid" aria-label="医学理想国平台概览">
-          <article class="hero-card">
-            <img src="assets/image4.png" alt="Med-Utopia 医学科技视觉" />
-            <div class="hero-diagnostics" aria-hidden="true">
-              <svg class="ecg-trace" viewBox="0 0 420 120">
-                <path d="M0 72 H64 L82 72 L98 40 L118 100 L140 72 H198 L216 72 L232 54 L248 72 H420" />
-              </svg>
-              <div class="diagnostic-lens">
-                <span></span>
-              </div>
-              <div class="vital-node node-a">SpO2 98</div>
-              <div class="vital-node node-b">ECG clean</div>
-              <div class="vital-node node-c">Signal 0.92</div>
+        <section class="opener-screen" aria-label="医学理想国开屏">
+          <div class="dna-backdrop" aria-hidden="true">
+            <svg class="dna-helix" viewBox="0 0 920 720">
+              <defs>
+                <linearGradient id="strandA" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8be8d1" />
+                  <stop offset="52%" stop-color="#4cbfd1" />
+                  <stop offset="100%" stop-color="#a04e68" />
+                </linearGradient>
+                <linearGradient id="strandB" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f4d485" />
+                  <stop offset="55%" stop-color="#63c7dc" />
+                  <stop offset="100%" stop-color="#8be8d1" />
+                </linearGradient>
+              </defs>
+              <g class="dna-rungs">
+                <path d="M382 78 L540 110" />
+                <path d="M326 150 L596 184" />
+                <path d="M320 226 L602 252" />
+                <path d="M374 300 L548 320" />
+                <path d="M436 370 L486 392" />
+                <path d="M366 444 L558 470" />
+                <path d="M316 518 L604 548" />
+                <path d="M334 594 L586 620" />
+                <path d="M392 666 L526 684" />
+              </g>
+              <path class="dna-strand strand-one" d="M392 56 C690 140 188 230 488 342 C744 438 198 524 402 692" />
+              <path class="dna-strand strand-two" d="M528 56 C230 140 732 230 432 342 C176 438 722 524 518 692" />
+              <g class="dna-nodes">
+                <circle cx="392" cy="56" r="9" />
+                <circle cx="528" cy="56" r="9" />
+                <circle cx="326" cy="150" r="7" />
+                <circle cx="596" cy="184" r="7" />
+                <circle cx="374" cy="300" r="8" />
+                <circle cx="548" cy="320" r="8" />
+                <circle cx="366" cy="444" r="7" />
+                <circle cx="558" cy="470" r="7" />
+                <circle cx="334" cy="594" r="8" />
+                <circle cx="586" cy="620" r="8" />
+                <circle cx="402" cy="692" r="9" />
+                <circle cx="518" cy="692" r="9" />
+              </g>
+            </svg>
+          </div>
+          <div class="opener-copy">
+            <p class="eyebrow">Med-Utopia</p>
+            <h1>医学理想国</h1>
+            <p class="lede">一个把病例、专家、文献与技术协作接到同一条医学智慧链路上的工作台。</p>
+            <div class="hero-actions">
+              <button class="primary-button" type="button" data-open-modal="case">提交病例</button>
+              <a class="ghost-link" href="#story">向下进入</a>
             </div>
-            <div class="hero-copy">
-              <p class="eyebrow">Med-Utopia</p>
-              <h1>让医学智慧被看见。</h1>
-              <p class="lede">病例复盘、专家咨询、技术悬赏与学术策展，在同一个高信噪比工作台完成。</p>
-              <div class="hero-actions">
-                <button class="primary-button" type="button" data-open-modal="case">提交病例</button>
-                <button class="ghost-button" type="button" data-open-modal="bounty">发布悬赏</button>
-              </div>
+          </div>
+          <div class="opener-metrics" aria-label="平台实时概览">
+            <div>
+              <span id="queueCount">0</span>
+              <p>待处理提交</p>
             </div>
-          </article>
-
-          <article class="signal-card glass-card">
-            <span class="card-label">Queue</span>
-            <strong id="queueCount">0</strong>
-            <p>待处理提交</p>
-          </article>
-
-          <article class="live-card glass-card">
-            <span class="card-label">Live Bounty</span>
-            <h2>队列图谱重构</h2>
-            <div class="reward">
-              <span>赏金</span>
-              <strong>¥ 1,800</strong>
+            <div>
+              <span>¥1,800</span>
+              <p>当前悬赏</p>
             </div>
-          </article>
+            <div>
+              <span>4</span>
+              <p>核心入口</p>
+            </div>
+          </div>
         </section>
 
-        <section class="literature-section" aria-label="近期优质文献分类">
+        <section class="rotating-story" id="story" aria-label="医学理想国滚动叙事">
+          <div class="story-sticky">
+            <div class="story-copy">
+              <p class="eyebrow">Scroll Anatomy</p>
+              <h2>沿着 DNA 往下，进入四个医学协作舱。</h2>
+              <p>每一层都是一个真实入口：复盘病例、发起咨询、发布悬赏、阅读高质量文献。</p>
+            </div>
+            <div class="story-wheel" aria-live="polite">
+              <article class="story-panel active" data-story-panel>
+                <span>01 / Case Lab</span>
+                <h3>避雷针实验室</h3>
+                <p>脱敏病例进入结构化复盘，关键决策节点被清楚标记。</p>
+                <button class="primary-button small" type="button" data-open-modal="case">提交病例</button>
+              </article>
+              <article class="story-panel" data-story-panel>
+                <span>02 / Booking</span>
+                <h3>学术挂号</h3>
+                <p>把一个模糊问题整理成标准问题单，再匹配专家方向。</p>
+                <button class="primary-button small" type="button" data-open-modal="consult">发起咨询</button>
+              </article>
+              <article class="story-panel" data-story-panel>
+                <span>03 / Bounty</span>
+                <h3>技术悬赏</h3>
+                <p>统计、图表、AI 工作流与科研交付，变成可报价任务。</p>
+                <button class="primary-button small" type="button" data-open-modal="bounty">发布任务</button>
+              </article>
+              <article class="story-panel" data-story-panel>
+                <span>04 / Atlas</span>
+                <h3>文献图谱</h3>
+                <p>近期优质文献按医学领域归类，减少无效检索时间。</p>
+                <a class="ghost-link small" href="#literature">查看图谱</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="literature-section" id="literature" aria-label="近期优质文献分类">
           <div class="section-head compact">
             <p>Literature Atlas</p>
             <h2>按医学领域阅读</h2>

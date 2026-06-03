@@ -570,10 +570,314 @@ main {
   box-shadow: inset 0 0 0 1px var(--line);
 }
 
+.ghost-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.13);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.ghost-link.small {
+  min-height: 38px;
+  padding: 10px 13px;
+  font-size: 14px;
+}
+
 .primary-button:hover,
 .ghost-button:hover,
-.icon-button:hover {
+.icon-button:hover,
+.ghost-link:hover {
   transform: translateY(-1px);
+}
+
+.opener-screen {
+  min-height: calc(100vh - 94px);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  padding: 62px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius);
+  color: #effffb;
+  background:
+    linear-gradient(115deg, rgba(5, 19, 23, 0.98), rgba(15, 45, 50, 0.94) 52%, rgba(33, 28, 42, 0.96)),
+    #071316;
+  box-shadow: 0 30px 90px rgba(6, 24, 28, 0.24);
+}
+
+.opener-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.52;
+  background-image:
+    linear-gradient(rgba(234, 255, 251, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(234, 255, 251, 0.06) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.opener-screen::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 34%;
+  z-index: -1;
+  background: linear-gradient(to top, rgba(139, 232, 209, 0.18), transparent);
+}
+
+.dna-backdrop {
+  position: absolute;
+  inset: -8% -6% -10% 22%;
+  z-index: -1;
+  display: grid;
+  place-items: center;
+  opacity: 0.98;
+  transform: perspective(950px) rotateY(-18deg) rotateX(6deg);
+}
+
+.dna-helix {
+  width: min(760px, 70vw);
+  min-width: 520px;
+  filter: drop-shadow(0 0 26px rgba(139, 232, 209, 0.28));
+  animation: dnaFloat 8s ease-in-out infinite;
+}
+
+.dna-strand {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 880;
+  animation: dnaTrace 7s ease-in-out infinite;
+}
+
+.strand-one {
+  stroke: url("#strandA");
+}
+
+.strand-two {
+  stroke: url("#strandB");
+  animation-delay: -1.8s;
+}
+
+.dna-rungs path {
+  fill: none;
+  stroke: rgba(234, 255, 251, 0.32);
+  stroke-width: 5;
+  stroke-linecap: round;
+  animation: rungPulse 3.2s ease-in-out infinite;
+}
+
+.dna-rungs path:nth-child(2n) {
+  animation-delay: 0.45s;
+}
+
+.dna-rungs path:nth-child(3n) {
+  animation-delay: 0.9s;
+}
+
+.dna-nodes circle {
+  fill: rgba(139, 232, 209, 0.84);
+  stroke: rgba(255, 255, 255, 0.56);
+  stroke-width: 2;
+}
+
+.opener-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.opener-copy .eyebrow {
+  color: var(--mint);
+}
+
+.opener-copy h1 {
+  max-width: 100%;
+  margin: 12px 0 16px;
+  color: #f7fffd;
+  font-size: 74px;
+  line-height: 0.98;
+}
+
+.opener-copy .lede {
+  max-width: 600px;
+  color: rgba(239, 255, 251, 0.72);
+}
+
+.opener-metrics {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(92px, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+}
+
+.opener-metrics div {
+  min-width: 0;
+  padding: 14px;
+  background: rgba(6, 24, 28, 0.38);
+}
+
+.opener-metrics span {
+  display: block;
+  color: var(--mint);
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.opener-metrics p {
+  margin: 4px 0 0;
+  color: rgba(239, 255, 251, 0.64);
+  font-size: 12px;
+}
+
+.rotating-story {
+  min-height: 270vh;
+  position: relative;
+}
+
+.story-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: 42px;
+  align-items: center;
+  perspective: 1250px;
+}
+
+.story-copy {
+  padding-left: 10px;
+}
+
+.story-copy h2 {
+  margin: 10px 0 16px;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.story-copy p:last-child {
+  max-width: 420px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.story-wheel {
+  position: relative;
+  min-height: 620px;
+  transform-style: preserve-3d;
+}
+
+.story-wheel::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  width: 2px;
+  height: 88%;
+  background: linear-gradient(to bottom, transparent, rgba(76, 191, 209, 0.7), rgba(160, 78, 104, 0.48), transparent);
+  transform: translateX(-50%) rotateX(58deg);
+}
+
+.story-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(560px, 100%);
+  min-height: 238px;
+  padding: 26px;
+  border: 1px solid rgba(17, 27, 31, 0.1);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.22), transparent 38%),
+    rgba(255, 255, 255, 0.82);
+  box-shadow: 0 26px 72px rgba(23, 65, 69, 0.14);
+  backdrop-filter: blur(18px);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  transition: opacity 180ms ease, filter 180ms ease, border-color 180ms ease;
+}
+
+.story-panel.active {
+  border-color: rgba(76, 191, 209, 0.46);
+  box-shadow: 0 32px 88px rgba(23, 65, 69, 0.22);
+}
+
+.story-panel span {
+  display: block;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.story-panel h3 {
+  margin: 14px 0 12px;
+  font-size: 34px;
+  line-height: 1.08;
+}
+
+.story-panel p {
+  max-width: 420px;
+  margin: 0 0 22px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.story-panel .ghost-link {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+@keyframes dnaFloat {
+  50% {
+    transform: translateY(-18px) rotateZ(1.8deg);
+  }
+}
+
+@keyframes dnaTrace {
+  0% {
+    stroke-dashoffset: 880;
+  }
+
+  45%,
+  70% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -880;
+  }
+}
+
+@keyframes rungPulse {
+  50% {
+    opacity: 0.36;
+    stroke-width: 3;
+  }
 }
 
 .hero-grid {
@@ -1392,6 +1696,32 @@ h1 {
   .literature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .opener-screen {
+    min-height: 760px;
+    padding: 46px;
+  }
+
+  .dna-backdrop {
+    inset: 6% -16% 0 10%;
+    opacity: 0.72;
+  }
+
+  .story-sticky {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 18px;
+    padding: 46px 0;
+  }
+
+  .story-copy {
+    max-width: 640px;
+    padding-left: 0;
+  }
+
+  .story-wheel {
+    min-height: 560px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -1416,6 +1746,80 @@ h1 {
   .workspace-grid,
   .literature-grid {
     grid-template-columns: 1fr;
+  }
+
+  .opener-screen {
+    min-height: 720px;
+    padding: 28px;
+    align-items: start;
+  }
+
+  .opener-copy {
+    padding-top: 48px;
+  }
+
+  .opener-copy h1 {
+    font-size: 48px;
+  }
+
+  .opener-copy .lede {
+    font-size: 16px;
+  }
+
+  .dna-backdrop {
+    inset: 18% -42% 0 -10%;
+    transform: perspective(780px) rotateY(-22deg) rotateX(7deg);
+  }
+
+  .dna-helix {
+    width: 760px;
+    min-width: 760px;
+  }
+
+  .opener-metrics {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    grid-template-columns: 1fr;
+  }
+
+  .opener-metrics div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+  }
+
+  .rotating-story {
+    min-height: 240vh;
+  }
+
+  .story-sticky {
+    min-height: 100vh;
+    padding: 28px 0;
+  }
+
+  .story-copy h2 {
+    font-size: 32px;
+  }
+
+  .story-copy p:last-child {
+    font-size: 15px;
+  }
+
+  .story-wheel {
+    min-height: 520px;
+  }
+
+  .story-panel {
+    width: calc(100vw - 56px);
+    min-height: 220px;
+    padding: 20px;
+  }
+
+  .story-panel h3 {
+    font-size: 28px;
   }
 
   .hero-diagnostics {
@@ -1462,7 +1866,8 @@ h1 {
   }
 
   .primary-button,
-  .ghost-button {
+  .ghost-button,
+  .ghost-link {
     width: 100%;
   }
 
@@ -1493,7 +1898,10 @@ h1 {
   .pulse-ring,
   .intro-label,
   .ecg-trace path,
-  .diagnostic-lens span {
+  .diagnostic-lens span,
+  .dna-helix,
+  .dna-strand,
+  .dna-rungs path {
     animation-duration: 0.8s;
     animation-iteration-count: 1;
   }
