@@ -32,6 +32,9 @@ function createDnaScene(canvas) {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 120);
   const root = new THREE.Group();
+  let lastWidth = 0;
+  let lastHeight = 0;
+  let sceneVisible = true;
   scene.add(root);
 
   const strandA = new THREE.MeshPhysicalMaterial({
@@ -43,7 +46,7 @@ function createDnaScene(canvas) {
     clearcoat: 0.86,
     clearcoatRoughness: 0.18,
     transparent: true,
-    opacity: 0.92
+    opacity: 0.24
   });
   const strandB = new THREE.MeshPhysicalMaterial({
     color: 0xa04e68,
@@ -54,7 +57,7 @@ function createDnaScene(canvas) {
     clearcoat: 0.72,
     clearcoatRoughness: 0.2,
     transparent: true,
-    opacity: 0.88
+    opacity: 0.2
   });
   const rungMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xd8fffb,
@@ -102,6 +105,9 @@ function createDnaScene(canvas) {
     const rect = canvas.getBoundingClientRect();
     const width = Math.max(1, Math.round(rect.width));
     const height = Math.max(1, Math.round(rect.height));
+    if (width === lastWidth && height === lastHeight) return;
+    lastWidth = width;
+    lastHeight = height;
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
@@ -121,6 +127,10 @@ function createDnaScene(canvas) {
   }
 
   function render(time = 0) {
+    if (!sceneVisible) {
+      requestAnimationFrame(render);
+      return;
+    }
     resize();
     const progress = getProgress();
     const clock = prefersReducedMotion ? 0 : time * 0.001;
@@ -149,6 +159,12 @@ function createDnaScene(canvas) {
   }
 
   window.addEventListener("resize", resize);
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      sceneVisible = entries.some((entry) => entry.isIntersecting);
+    }, { rootMargin: "120px" });
+    observer.observe(canvas);
+  }
   resize();
   render();
 }
@@ -171,10 +187,12 @@ function buildDna(options) {
 
   const curveA = new THREE.CatmullRomCurve3(pathA);
   const curveB = new THREE.CatmullRomCurve3(pathB);
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveA, segments, 0.15, 16, false), makeGlowMaterial(0x6fe8da, 0.18)));
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveB, segments, 0.14, 16, false), makeGlowMaterial(0xa04e68, 0.16)));
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveA, segments, 0.036, 18, false), strandA));
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveB, segments, 0.036, 18, false), strandB));
+  group.add(buildParticleStrand(curveA, segments * 12, [0x8be8d1, 0x63c7dc, 0xc9fff4], radius * 0.09));
+  group.add(buildParticleStrand(curveB, segments * 12, [0xa04e68, 0xd27b96, 0x9c82bd], radius * 0.1));
+  group.add(buildParticleStrand(curveA, segments * 4, [0xeafffb, 0x63c7dc], radius * 0.24, 0.022));
+  group.add(buildParticleStrand(curveB, segments * 4, [0xf1b7c9, 0x9c82bd], radius * 0.24, 0.022));
+  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveA, segments, 0.018, 12, false), strandA));
+  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveB, segments, 0.018, 12, false), strandB));
 
   const rungCount = Math.floor(turns * 5);
   for (let index = 0; index < rungCount; index += 1) {
@@ -213,6 +231,45 @@ function buildParticles(count, range) {
       transparent: true,
       opacity: 0.44,
       depthWrite: false
+    })
+  );
+}
+
+function buildParticleStrand(curve, count, palette, jitter, size = 0.04) {
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const colorOptions = palette.map((color) => new THREE.Color(color));
+
+  for (let index = 0; index < count; index += 1) {
+    const t = index / Math.max(1, count - 1);
+    const point = curve.getPoint(t);
+    const spread = Math.pow(Math.random(), 2) * jitter;
+    point.x += (Math.random() - 0.5) * spread;
+    point.y += (Math.random() - 0.5) * spread * 1.4;
+    point.z += (Math.random() - 0.5) * spread;
+    positions[index * 3] = point.x;
+    positions[index * 3 + 1] = point.y;
+    positions[index * 3 + 2] = point.z;
+
+    const color = colorOptions[index % colorOptions.length];
+    colors[index * 3] = color.r;
+    colors[index * 3 + 1] = color.g;
+    colors[index * 3 + 2] = color.b;
+  }
+
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  return new THREE.Points(
+    geometry,
+    new THREE.PointsMaterial({
+      size,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.82,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true
     })
   );
 }

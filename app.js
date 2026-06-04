@@ -91,6 +91,7 @@ const introLoader = document.querySelector("#introLoader");
 const genomeCorridor = document.querySelector(".genome-corridor");
 const rotatingStory = document.querySelector(".rotating-story");
 const storyPanels = Array.from(document.querySelectorAll("[data-story-panel]"));
+const storyProgressItems = Array.from(document.querySelectorAll(".story-progress span"));
 const genomeSections = Array.from(document.querySelectorAll(
   ".genome-corridor .literature-section, .genome-corridor > .section-head, .genome-corridor .workspace-grid, .genome-corridor .records-section"
 ));
@@ -400,21 +401,24 @@ function updateStoryPanels() {
   storyPanels.forEach((panel, index) => {
     const offset = index - panelProgress;
     const distance = Math.abs(offset);
-    const side = index % 2 === 0 ? -1 : 1;
-    const baseX = isCompact ? 0 : side * Math.min(150, window.innerWidth * 0.1);
-    const translateX = baseX + offset * (isCompact ? 0 : -46);
-    const rotateX = offset * -8;
-    const rotateY = isCompact ? 0 : side * -6 + offset * 3;
-    const translateY = offset * 118;
-    const translateZ = 230 - distance * 118;
-    const scale = Math.max(0.78, 1 - distance * 0.065);
-    const opacity = Math.max(0.18, 1 - distance * 0.22);
+    const translateX = isCompact ? offset * 14 : offset * 118;
+    const rotateX = offset * -4;
+    const rotateY = isCompact ? 0 : offset * -3.5;
+    const translateY = offset * (isCompact ? 280 : 330);
+    const translateZ = -distance * (isCompact ? 120 : 280);
+    const scale = Math.max(0.64, 1 - distance * 0.12);
+    const opacity = Math.max(0.06, 1 - distance * 0.58);
+    const blur = Math.min(distance * 4.5, 10);
 
     panel.style.transform = `translate(-50%, -50%) translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
     panel.style.opacity = opacity.toFixed(2);
-    panel.style.filter = `blur(${Math.min(distance * 1.2, 3).toFixed(1)}px)`;
-    panel.style.zIndex = String(20 - Math.round(distance * 4));
+    panel.style.filter = `blur(${blur.toFixed(1)}px)`;
+    panel.style.zIndex = String(25 - Math.round(distance * 5));
     panel.classList.toggle("active", index === activeIndex);
+  });
+
+  storyProgressItems.forEach((item, index) => {
+    item.classList.toggle("active", index === activeIndex);
   });
 }
 

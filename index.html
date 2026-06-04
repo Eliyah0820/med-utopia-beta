@@ -191,10 +191,10 @@
           <div class="story-sticky">
             <div class="story-copy">
               <p class="eyebrow">Scroll Anatomy</p>
-              <h2>沿着 DNA 往下，进入四个医学协作舱。</h2>
-              <p>每一层都是一个真实入口：复盘病例、发起咨询、发布悬赏、阅读高质量文献。</p>
+              <h2>沿着医学智慧链路，进入协作舱。</h2>
+              <p>滚动穿过中央焦点，选择一个入口。</p>
             </div>
-            <div class="story-wheel" aria-live="polite">
+            <div class="story-wheel" id="storyWheel" aria-live="polite">
               <article class="story-panel active" data-story-panel>
                 <span>01 / Case Lab</span>
                 <h3>避雷针实验室</h3>
@@ -219,6 +219,15 @@
                 <p>近期优质文献按医学领域归类，减少无效检索时间。</p>
                 <a class="ghost-link small" href="#literature">查看图谱</a>
               </article>
+            </div>
+            <div class="story-focus" aria-hidden="true">
+              <span>Selected Module</span>
+            </div>
+            <div class="story-progress" aria-label="当前模块">
+              <span class="active">01</span>
+              <span>02</span>
+              <span>03</span>
+              <span>04</span>
             </div>
           </div>
         </section>

@@ -778,7 +778,7 @@ body.three-ready .genome-helix {
   isolation: isolate;
   margin-top: 34px;
   padding: 1px 22px 72px;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid rgba(234, 255, 251, 0.08);
   border-radius: var(--radius);
   color: #effffb;
@@ -998,29 +998,33 @@ body.three-ready .genome-helix {
 }
 
 .rotating-story {
-  min-height: 292vh;
+  min-height: 390vh;
   position: relative;
 }
 
 .story-sticky {
   position: sticky;
   top: 0;
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 0.78fr 1.22fr;
-  gap: 42px;
-  align-items: center;
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
   perspective: 1250px;
 }
 
 .story-copy {
-  padding-left: 10px;
+  position: absolute;
+  left: 4%;
+  top: 8%;
+  z-index: 32;
+  width: min(360px, 34vw);
+  padding-left: 0;
+  pointer-events: none;
 }
 
 .story-copy h2 {
   margin: 10px 0 16px;
   color: #effffb;
-  font-size: 44px;
+  font-size: 36px;
   line-height: 1.08;
   letter-spacing: 0;
 }
@@ -1028,67 +1032,71 @@ body.three-ready .genome-helix {
 .story-copy p:last-child {
   max-width: 420px;
   color: rgba(239, 255, 251, 0.62);
-  font-size: 17px;
+  font-size: 14px;
   line-height: 1.7;
 }
 
 .story-wheel {
-  position: relative;
-  min-height: 620px;
+  position: absolute;
+  inset: 0;
   transform-style: preserve-3d;
+  perspective: 1500px;
 }
 
 .story-wheel::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 6%;
-  width: 112px;
-  height: 88%;
-  border: 1px solid rgba(76, 191, 209, 0.2);
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse at center, rgba(139, 232, 209, 0.16), transparent 58%),
-    linear-gradient(to bottom, transparent, rgba(76, 191, 209, 0.16), rgba(160, 78, 104, 0.12), transparent);
-  transform: translateX(-50%) rotateX(58deg) rotateZ(calc(var(--corridor-progress) * 180deg));
+  content: none;
 }
 
 .story-panel {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(650px, 100%);
-  min-height: 264px;
-  padding: 30px;
+  width: min(650px, 62vw);
+  min-height: 248px;
+  padding: 28px;
   border: 1px solid rgba(234, 255, 251, 0.16);
   border-radius: var(--radius);
   color: #effffb;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    linear-gradient(105deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.025)),
     radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.18), transparent 38%),
-    rgba(12, 22, 30, 0.42);
+    rgba(12, 22, 30, 0.22);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 34px 110px rgba(0, 0, 0, 0.32);
-  backdrop-filter: blur(34px) saturate(145%);
-  -webkit-backdrop-filter: blur(34px) saturate(145%);
+    0 28px 100px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
   transform: translate(-50%, -50%);
   transform-origin: center;
-  transition: opacity 180ms ease, filter 180ms ease, border-color 180ms ease;
+  transition:
+    opacity 120ms linear,
+    filter 120ms linear,
+    border-color 240ms ease,
+    background 240ms ease,
+    box-shadow 240ms ease;
+  will-change: transform, opacity, filter;
 }
 
 .story-panel.active {
-  border-color: rgba(139, 232, 209, 0.46);
+  border-color: rgba(176, 248, 234, 0.68);
   background:
-    linear-gradient(100deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
-    radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.22), transparent 40%),
-    rgba(14, 30, 39, 0.5);
+    linear-gradient(105deg, rgba(255, 255, 255, 0.29), rgba(255, 255, 255, 0.08)),
+    radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.28), transparent 44%),
+    rgba(18, 39, 48, 0.78);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 0 0 1px rgba(139, 232, 209, 0.1),
-    0 42px 130px rgba(0, 0, 0, 0.42),
-    0 0 60px rgba(76, 191, 209, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(139, 232, 209, 0.16),
+    0 0 0 1px rgba(139, 232, 209, 0.16),
+    0 40px 120px rgba(0, 0, 0, 0.46),
+    0 0 72px rgba(76, 191, 209, 0.24);
+  backdrop-filter: blur(30px) saturate(165%);
+  -webkit-backdrop-filter: blur(30px) saturate(165%);
+  pointer-events: auto;
+}
+
+.story-panel:not(.active) {
+  pointer-events: none;
 }
 
 .story-panel::after {
@@ -1104,18 +1112,18 @@ body.three-ready .genome-helix {
   content: "";
   position: absolute;
   top: 50%;
-  width: 96px;
+  width: 150px;
   height: 1px;
   background: linear-gradient(90deg, rgba(76, 191, 209, 0), rgba(76, 191, 209, 0.66));
   opacity: 0.62;
 }
 
 .story-panel:nth-child(odd)::before {
-  right: -96px;
+  right: -150px;
 }
 
 .story-panel:nth-child(even)::before {
-  left: -96px;
+  left: -150px;
   transform: rotate(180deg);
 }
 
@@ -1144,6 +1152,72 @@ body.three-ready .genome-helix {
   color: #effffb;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 0 0 1px rgba(234, 255, 251, 0.16);
+}
+
+.story-focus {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  top: 50%;
+  z-index: 31;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(139, 232, 209, 0.22) 22%, rgba(234, 255, 251, 0.72) 50%, rgba(139, 232, 209, 0.22) 78%, transparent);
+  box-shadow: 0 0 18px rgba(139, 232, 209, 0.22);
+}
+
+.story-focus::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(760px, 68vw);
+  height: 310px;
+  border: 1px solid rgba(139, 232, 209, 0.09);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(139, 232, 209, 0.08), transparent 66%);
+  box-shadow: inset 0 0 70px rgba(139, 232, 209, 0.04);
+}
+
+.story-focus span {
+  position: absolute;
+  right: 4%;
+  bottom: 10px;
+  color: rgba(139, 232, 209, 0.58);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.story-progress {
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  z-index: 34;
+  display: grid;
+  gap: 18px;
+  transform: translateY(-50%);
+}
+
+.story-progress span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(234, 255, 251, 0.1);
+  color: rgba(239, 255, 251, 0.34);
+  font-size: 10px;
+  font-weight: 900;
+  background: rgba(5, 16, 22, 0.3);
+  transition: 220ms ease;
+}
+
+.story-progress span.active {
+  border-color: rgba(139, 232, 209, 0.72);
+  color: #effffb;
+  background: rgba(139, 232, 209, 0.16);
+  box-shadow: 0 0 22px rgba(139, 232, 209, 0.2);
+  transform: scale(1.18);
 }
 
 @keyframes dnaFloat {
@@ -2015,19 +2089,18 @@ h1 {
   }
 
   .story-sticky {
-    grid-template-columns: 1fr;
-    align-content: center;
-    gap: 18px;
-    padding: 46px 0;
+    min-height: 640px;
   }
 
   .story-copy {
-    max-width: 640px;
+    left: 3%;
+    top: 5%;
+    width: min(330px, 42vw);
     padding-left: 0;
   }
 
-  .story-wheel {
-    min-height: 560px;
+  .story-panel {
+    width: min(590px, 68vw);
   }
 
   .genome-spine::before {
@@ -2108,7 +2181,7 @@ h1 {
   }
 
   .rotating-story {
-    min-height: 240vh;
+    min-height: 360vh;
   }
 
   .genome-corridor {
@@ -2145,25 +2218,27 @@ h1 {
   }
 
   .story-sticky {
-    min-height: 100vh;
-    padding: 28px 0;
+    min-height: 620px;
+  }
+
+  .story-copy {
+    left: 18px;
+    top: 24px;
+    width: calc(100% - 74px);
   }
 
   .story-copy h2 {
-    font-size: 32px;
+    max-width: 320px;
+    font-size: 26px;
   }
 
   .story-copy p:last-child {
     font-size: 15px;
   }
 
-  .story-wheel {
-    min-height: 520px;
-  }
-
   .story-panel {
-    width: calc(100vw - 56px);
-    min-height: 220px;
+    width: calc(100vw - 84px);
+    min-height: 230px;
     padding: 20px;
   }
 
@@ -2173,6 +2248,30 @@ h1 {
 
   .story-panel::before {
     display: none;
+  }
+
+  .story-focus {
+    left: 8px;
+    right: 8px;
+  }
+
+  .story-focus::before {
+    width: calc(100vw - 62px);
+    height: 280px;
+  }
+
+  .story-focus span {
+    display: none;
+  }
+
+  .story-progress {
+    right: 10px;
+    gap: 12px;
+  }
+
+  .story-progress span {
+    width: 24px;
+    height: 24px;
   }
 
   .hero-diagnostics {
