@@ -401,14 +401,14 @@ function updateStoryPanels() {
     const offset = index - panelProgress;
     const distance = Math.abs(offset);
     const side = index % 2 === 0 ? -1 : 1;
-    const baseX = isCompact ? 0 : side * Math.min(280, window.innerWidth * 0.18);
-    const translateX = baseX * Math.max(0.52, 1 - distance * 0.16);
-    const rotateX = offset * -28;
-    const rotateY = isCompact ? 0 : side * -10 + offset * 5;
-    const translateY = offset * 150;
-    const translateZ = 150 - distance * 150;
-    const scale = Math.max(0.82, 1 - distance * 0.08);
-    const opacity = Math.max(0.2, 1 - distance * 0.28);
+    const baseX = isCompact ? 0 : side * Math.min(150, window.innerWidth * 0.1);
+    const translateX = baseX + offset * (isCompact ? 0 : -46);
+    const rotateX = offset * -8;
+    const rotateY = isCompact ? 0 : side * -6 + offset * 3;
+    const translateY = offset * 118;
+    const translateZ = 230 - distance * 118;
+    const scale = Math.max(0.78, 1 - distance * 0.065);
+    const opacity = Math.max(0.18, 1 - distance * 0.22);
 
     panel.style.transform = `translate(-50%, -50%) translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
     panel.style.opacity = opacity.toFixed(2);

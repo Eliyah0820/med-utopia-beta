@@ -34,28 +34,38 @@ function createDnaScene(canvas) {
   const root = new THREE.Group();
   scene.add(root);
 
-  const strandA = new THREE.MeshStandardMaterial({
+  const strandA = new THREE.MeshPhysicalMaterial({
     color: 0x6fe8da,
     emissive: 0x1a8f8c,
-    emissiveIntensity: 0.56,
-    metalness: 0.22,
-    roughness: 0.24
+    emissiveIntensity: 0.68,
+    metalness: 0.42,
+    roughness: 0.16,
+    clearcoat: 0.86,
+    clearcoatRoughness: 0.18,
+    transparent: true,
+    opacity: 0.92
   });
-  const strandB = new THREE.MeshStandardMaterial({
+  const strandB = new THREE.MeshPhysicalMaterial({
     color: 0xa04e68,
     emissive: 0x5f1830,
-    emissiveIntensity: 0.48,
-    metalness: 0.18,
-    roughness: 0.28
+    emissiveIntensity: 0.58,
+    metalness: 0.34,
+    roughness: 0.18,
+    clearcoat: 0.72,
+    clearcoatRoughness: 0.2,
+    transparent: true,
+    opacity: 0.88
   });
-  const rungMaterial = new THREE.MeshStandardMaterial({
+  const rungMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xd8fffb,
     emissive: 0x245e6a,
-    emissiveIntensity: 0.28,
-    metalness: 0.12,
-    roughness: 0.42,
+    emissiveIntensity: 0.36,
+    metalness: 0.28,
+    roughness: 0.26,
+    clearcoat: 0.7,
+    clearcoatRoughness: 0.18,
     transparent: true,
-    opacity: 0.74
+    opacity: 0.52
   });
   const nodeMaterials = [
     makeNodeMaterial(0x8be8d1, 0x1a8f8c),
@@ -148,8 +158,8 @@ function buildDna(options) {
   const group = new THREE.Group();
   const pathA = [];
   const pathB = [];
-  const nodeGeometry = new THREE.SphereGeometry(0.115, 22, 16);
-  const rungGeometry = new THREE.CylinderGeometry(0.025, 0.025, 1, 10);
+  const nodeGeometry = new THREE.SphereGeometry(0.086, 24, 18);
+  const rungGeometry = new THREE.CylinderGeometry(0.018, 0.018, 1, 10);
 
   for (let index = 0; index <= segments; index += 1) {
     const t = index / segments;
@@ -161,8 +171,10 @@ function buildDna(options) {
 
   const curveA = new THREE.CatmullRomCurve3(pathA);
   const curveB = new THREE.CatmullRomCurve3(pathB);
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveA, segments, 0.045, 14, false), strandA));
-  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveB, segments, 0.045, 14, false), strandB));
+  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveA, segments, 0.15, 16, false), makeGlowMaterial(0x6fe8da, 0.18)));
+  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveB, segments, 0.14, 16, false), makeGlowMaterial(0xa04e68, 0.16)));
+  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveA, segments, 0.036, 18, false), strandA));
+  group.add(new THREE.Mesh(new THREE.TubeGeometry(curveB, segments, 0.036, 18, false), strandB));
 
   const rungCount = Math.floor(turns * 5);
   for (let index = 0; index < rungCount; index += 1) {
@@ -206,12 +218,24 @@ function buildParticles(count, range) {
 }
 
 function makeNodeMaterial(color, emissive) {
-  return new THREE.MeshStandardMaterial({
+  return new THREE.MeshPhysicalMaterial({
     color,
     emissive,
-    emissiveIntensity: 0.58,
-    metalness: 0.16,
-    roughness: 0.22
+    emissiveIntensity: 0.7,
+    metalness: 0.28,
+    roughness: 0.16,
+    clearcoat: 0.82,
+    clearcoatRoughness: 0.16
+  });
+}
+
+function makeGlowMaterial(color, opacity) {
+  return new THREE.MeshBasicMaterial({
+    color,
+    transparent: true,
+    opacity,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
   });
 }
 

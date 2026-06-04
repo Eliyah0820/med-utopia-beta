@@ -777,18 +777,30 @@ body.three-ready .genome-helix {
   position: relative;
   isolation: isolate;
   margin-top: 34px;
-  padding-top: 1px;
+  padding: 1px 22px 72px;
+  overflow: hidden;
+  border: 1px solid rgba(234, 255, 251, 0.08);
+  border-radius: var(--radius);
+  color: #effffb;
+  background:
+    radial-gradient(circle at 74% 18%, rgba(160, 78, 104, 0.24), transparent 28%),
+    radial-gradient(circle at 28% 42%, rgba(76, 191, 209, 0.16), transparent 32%),
+    linear-gradient(135deg, rgba(6, 13, 18, 0.98), rgba(11, 24, 31, 0.97) 48%, rgba(14, 16, 24, 0.99));
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.28);
 }
 
 .genome-corridor::before {
   content: "";
   position: absolute;
-  inset: 0 -22px;
-  z-index: -1;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.78;
   background:
-    linear-gradient(180deg, rgba(6, 24, 28, 0.04), rgba(6, 24, 28, 0.1) 42%, rgba(255, 255, 255, 0.08)),
-    linear-gradient(90deg, transparent, rgba(139, 232, 209, 0.08), transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 5%, #000 94%, transparent);
+    linear-gradient(rgba(234, 255, 251, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(234, 255, 251, 0.028) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%, rgba(255, 255, 255, 0.03) 62%, transparent);
+  background-size: 56px 56px, 56px 56px, 100% 100%;
+  mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
 }
 
 .genome-spine {
@@ -815,10 +827,10 @@ body.three-ready .genome-helix {
   height: 100%;
   transform: translateX(-50%);
   background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.58), transparent),
-    linear-gradient(180deg, transparent, rgba(139, 232, 209, 0.16), transparent);
-  opacity: 0.62;
-  filter: blur(26px);
+    radial-gradient(ellipse at center, rgba(139, 232, 209, 0.22), transparent 58%),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  opacity: 0.8;
+  filter: blur(34px);
 }
 
 .genome-helix {
@@ -907,7 +919,7 @@ body.three-ready .genome-helix {
 .genome-corridor > .section-head,
 .genome-corridor > .workspace-grid {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .genome-corridor .literature-section,
@@ -923,6 +935,66 @@ body.three-ready .genome-helix {
 .genome-corridor .genome-section-active {
   opacity: 1;
   transform: none;
+}
+
+.genome-corridor .section-head p,
+.genome-corridor .card-label,
+.genome-corridor .eyebrow {
+  color: rgba(139, 232, 209, 0.78);
+}
+
+.genome-corridor .section-head h2,
+.genome-corridor .panel h3,
+.genome-corridor .record-card h3,
+.genome-corridor .literature-card h3 {
+  color: #effffb;
+}
+
+.genome-corridor .panel,
+.genome-corridor .record-card,
+.genome-corridor .literature-card,
+.genome-corridor .case-item,
+.genome-corridor .empty-state,
+.genome-corridor .status-stack span {
+  border-color: rgba(234, 255, 251, 0.13);
+  color: #effffb;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035)),
+    rgba(9, 21, 28, 0.46);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 24px 78px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(26px) saturate(135%);
+  -webkit-backdrop-filter: blur(26px) saturate(135%);
+}
+
+.genome-corridor .panel p,
+.genome-corridor .record-card p,
+.genome-corridor .empty-state p,
+.genome-corridor .literature-card p,
+.genome-corridor .literature-card small,
+.genome-corridor .case-item p {
+  color: rgba(239, 255, 251, 0.6);
+}
+
+.genome-corridor .literature-card.active {
+  background:
+    linear-gradient(120deg, rgba(139, 232, 209, 0.18), rgba(160, 78, 104, 0.1)),
+    rgba(12, 28, 36, 0.58);
+}
+
+.genome-corridor .field-icon {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(234, 255, 251, 0.14);
+}
+
+.genome-corridor .ghost-button,
+.genome-corridor .tab,
+.genome-corridor .status-badge {
+  color: #effffb;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(234, 255, 251, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(234, 255, 251, 0.1);
 }
 
 .rotating-story {
@@ -947,6 +1019,7 @@ body.three-ready .genome-helix {
 
 .story-copy h2 {
   margin: 10px 0 16px;
+  color: #effffb;
   font-size: 44px;
   line-height: 1.08;
   letter-spacing: 0;
@@ -954,7 +1027,7 @@ body.three-ready .genome-helix {
 
 .story-copy p:last-child {
   max-width: 420px;
-  color: var(--muted);
+  color: rgba(239, 255, 251, 0.62);
   font-size: 17px;
   line-height: 1.7;
 }
@@ -984,24 +1057,47 @@ body.three-ready .genome-helix {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(560px, 100%);
-  min-height: 238px;
-  padding: 26px;
-  border: 1px solid rgba(17, 27, 31, 0.1);
+  width: min(650px, 100%);
+  min-height: 264px;
+  padding: 30px;
+  border: 1px solid rgba(234, 255, 251, 0.16);
   border-radius: var(--radius);
+  color: #effffb;
   background:
-    radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.22), transparent 38%),
-    rgba(255, 255, 255, 0.82);
-  box-shadow: 0 26px 72px rgba(23, 65, 69, 0.14);
-  backdrop-filter: blur(18px);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.18), transparent 38%),
+    rgba(12, 22, 30, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 34px 110px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(34px) saturate(145%);
+  -webkit-backdrop-filter: blur(34px) saturate(145%);
   transform: translate(-50%, -50%);
   transform-origin: center;
   transition: opacity 180ms ease, filter 180ms ease, border-color 180ms ease;
 }
 
 .story-panel.active {
-  border-color: rgba(76, 191, 209, 0.46);
-  box-shadow: 0 32px 88px rgba(23, 65, 69, 0.22);
+  border-color: rgba(139, 232, 209, 0.46);
+  background:
+    linear-gradient(100deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
+    radial-gradient(circle at var(--mx, 78%) var(--my, 18%), rgba(139, 232, 209, 0.22), transparent 40%),
+    rgba(14, 30, 39, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 0 0 1px rgba(139, 232, 209, 0.1),
+    0 42px 130px rgba(0, 0, 0, 0.42),
+    0 0 60px rgba(76, 191, 209, 0.18);
+}
+
+.story-panel::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: calc(var(--radius) - 2px);
+  pointer-events: none;
 }
 
 .story-panel::before {
@@ -1025,7 +1121,7 @@ body.three-ready .genome-helix {
 
 .story-panel span {
   display: block;
-  color: var(--blue);
+  color: rgba(139, 232, 209, 0.78);
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
@@ -1040,14 +1136,14 @@ body.three-ready .genome-helix {
 .story-panel p {
   max-width: 420px;
   margin: 0 0 22px;
-  color: var(--muted);
+  color: rgba(239, 255, 251, 0.64);
   line-height: 1.65;
 }
 
 .story-panel .ghost-link {
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: inset 0 0 0 1px var(--line);
+  color: #effffb;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(234, 255, 251, 0.16);
 }
 
 @keyframes dnaFloat {
